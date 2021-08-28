@@ -30,8 +30,9 @@ html, body {
     border-radius: 0.5vw;
     border: 0.1vw solid purple;
     margin: 0.5vw;
-
     outline: none;
+
+    font: normal normal normal 1.75vw/3.3vw "Josefin Sans";
 }
 
 .login, .register {
