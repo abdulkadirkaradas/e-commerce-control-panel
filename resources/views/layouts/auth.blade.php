@@ -16,13 +16,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/exacti/floating-labels@latest/floating-labels.min.css" media="screen">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css">
 	<link href="{{ asset('css/layout.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @yield('styles')
 </head>
 
 <body>
-    {{-- @include('partials.sidebar')
-	@include('partials.navbar') --}}
+    {{-- @include('partials.sidebar') --}}
+	@include('partials.navbar')
 
     @yield('content')
 
