@@ -1,11 +1,55 @@
 #login-navbar {
     width: 100%;
     min-width: 100%;
-    height: 100px;
+    height: 4vw;
     background-color: lightblue;
     border-bottom: purple;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
 
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.login-button, .register-button {
+    width: 8vw;
+    height: 2.85vw;
+    background-color: red;
+    border-radius: 1vw;
+
+    font: normal normal normal 1.5vw/2vw "Josefin Sans";
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    cursor: pointer;
+}
+
+.login-button {
+    position: absolute;
+    right: 2vw;
+}
+
+.register-button {
+    position: absolute;
+    right: 12vw;
+}
+
+.title {
+    font: normal normal normal 1.5vw/2vw "Josefin Sans";
+}
+
+.logo {
+    width: 3.5vw;
+    height: 3.5vw;
+    position: absolute;
+    left: 1vw;
+    background-image: url("../images/logo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

@@ -1,8 +1,8 @@
 @extends('layouts.auth')
 @section('content')
 
-    {{-- <div class="main-container">
-    </div> --}}
+    <div class="main-container">
+    </div>
 
 @endsection
 
