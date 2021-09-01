@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroyVideoTypeRequest;
 use App\Http\Requests\StoreVideoTypeRequest;
 use App\Http\Requests\UpdateVideoTypeRequest;
 use App\Models\VideoType;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroySaleSituationRequest;
 use App\Http\Requests\StoreSaleSituationRequest;
 use App\Http\Requests\UpdateSaleSituationRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

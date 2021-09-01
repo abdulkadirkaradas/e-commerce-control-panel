@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCustomerFavoriteRequest;
 use App\Http\Requests\StoreCustomerFavoriteRequest;
 use App\Http\Requests\UpdateCustomerFavoriteRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

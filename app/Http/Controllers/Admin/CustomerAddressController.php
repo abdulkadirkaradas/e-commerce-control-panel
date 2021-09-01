@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroyCustomerAddressRequest;
 use App\Http\Requests\StoreCustomerAddressRequest;
 use App\Http\Requests\UpdateCustomerAddressRequest;
 use App\Models\CustomerAddress;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

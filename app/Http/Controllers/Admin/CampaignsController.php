@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateCampaignRequest;
 use App\Models\Campaign;
 use App\Models\Customer;
 use App\Models\Product;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

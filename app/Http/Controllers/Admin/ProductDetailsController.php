@@ -8,7 +8,7 @@ use App\Http\Requests\StoreProductDetailRequest;
 use App\Http\Requests\UpdateProductDetailRequest;
 use App\Models\Product;
 use App\Models\ProductDetail;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

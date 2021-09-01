@@ -8,7 +8,7 @@ use App\Http\Requests\MassDestroyStaticContentRequest;
 use App\Http\Requests\StoreStaticContentRequest;
 use App\Http\Requests\UpdateStaticContentRequest;
 use App\Models\StaticContent;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
