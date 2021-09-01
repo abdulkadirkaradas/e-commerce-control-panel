@@ -11,6 +11,7 @@ use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class ProductDetailsController extends Controller
 {
@@ -34,6 +35,8 @@ class ProductDetailsController extends Controller
 
     public function store(StoreProductDetailRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $productDetail = ProductDetail::create($request->all());
 
         return redirect()->route('admin.product-details.index');

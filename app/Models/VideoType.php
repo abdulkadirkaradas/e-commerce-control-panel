@@ -21,6 +21,7 @@ class VideoType extends Model
     ];
 
     protected $fillable = [
+        'id',
         'video_type',
         'created_at',
         'updated_at',

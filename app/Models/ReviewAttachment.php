@@ -29,6 +29,7 @@ class ReviewAttachment extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'id',
         'name',
         'location',
         'created_at',

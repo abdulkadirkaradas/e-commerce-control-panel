@@ -21,6 +21,7 @@ class ShoppingCart extends Model
     ];
 
     protected $fillable = [
+        'id',
         'customer_uuid_id',
         'product_uuid_id',
         'quantity',

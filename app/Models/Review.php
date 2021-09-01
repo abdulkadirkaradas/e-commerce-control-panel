@@ -21,6 +21,7 @@ class Review extends Model
     ];
 
     protected $fillable = [
+        'id',
         'customer_uuid',
         'product_uuid',
         'rate_score',

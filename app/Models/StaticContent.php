@@ -25,6 +25,7 @@ class StaticContent extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'id',
         'key',
         'title',
         'html_content',

@@ -21,6 +21,7 @@ class Campaign extends Model
     ];
 
     protected $fillable = [
+        'id',
         'name',
         'description',
         'customer_uuid_id',

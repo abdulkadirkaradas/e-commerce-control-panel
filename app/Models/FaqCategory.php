@@ -21,6 +21,7 @@ class FaqCategory extends Model
     ];
 
     protected $fillable = [
+        'id',
         'category',
         'sorting',
         'created_at',

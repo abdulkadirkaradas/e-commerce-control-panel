@@ -21,6 +21,7 @@ class Faq extends Model
     ];
 
     protected $fillable = [
+        'id',
         'category_id',
         'question',
         'answer',

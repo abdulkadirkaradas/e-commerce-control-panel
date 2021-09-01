@@ -10,6 +10,7 @@ use App\Models\VideoType;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class VideoTypesController extends Controller
 {
@@ -31,6 +32,8 @@ class VideoTypesController extends Controller
 
     public function store(StoreVideoTypeRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $videoType = VideoType::create($request->all());
 
         return redirect()->route('admin.video-types.index');

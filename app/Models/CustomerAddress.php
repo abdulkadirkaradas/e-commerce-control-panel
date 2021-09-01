@@ -33,6 +33,7 @@ class CustomerAddress extends Model
     ];
 
     protected $fillable = [
+        'id',
         'customer_uuid',
         'province',
         'district',

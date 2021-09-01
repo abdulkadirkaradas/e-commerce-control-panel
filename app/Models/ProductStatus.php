@@ -21,6 +21,7 @@ class ProductStatus extends Model
     ];
 
     protected $fillable = [
+        'id',
         'status',
         'created_at',
         'updated_at',

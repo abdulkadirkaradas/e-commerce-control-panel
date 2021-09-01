@@ -10,6 +10,7 @@ use App\Models\FaqCategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class FaqCategoriesController extends Controller
 {
@@ -31,6 +32,8 @@ class FaqCategoriesController extends Controller
 
     public function store(StoreFaqCategoryRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $faqCategory = FaqCategory::create($request->all());
 
         return redirect()->route('admin.faq-categories.index');

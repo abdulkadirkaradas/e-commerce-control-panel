@@ -21,6 +21,7 @@ class Favorite extends Model
     ];
 
     protected $fillable = [
+        'id',
         'customer_uuid',
         'product_uuid',
         'created_at',

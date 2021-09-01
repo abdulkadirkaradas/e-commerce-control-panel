@@ -13,6 +13,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class OrdersController extends Controller
 {
@@ -42,6 +43,8 @@ class OrdersController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $order = Order::create($request->all());
 
         return redirect()->route('admin.orders.index');

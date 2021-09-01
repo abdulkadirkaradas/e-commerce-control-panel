@@ -10,6 +10,7 @@ use App\Models\Favorite;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class FavoritesController extends Controller
 {
@@ -31,6 +32,8 @@ class FavoritesController extends Controller
 
     public function store(StoreFavoriteRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $favorite = Favorite::create($request->all());
 
         return redirect()->route('admin.favorites.index');

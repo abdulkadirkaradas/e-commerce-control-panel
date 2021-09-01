@@ -29,6 +29,7 @@ class Video extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'id',
         'description',
         'type',
         'video',

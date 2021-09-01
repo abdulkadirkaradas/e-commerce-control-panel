@@ -21,6 +21,7 @@ class ProductDetail extends Model
     ];
 
     protected $fillable = [
+        'id',
         'product_uuid_id',
         'details',
         'created_at',

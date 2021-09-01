@@ -12,6 +12,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class CampaignsController extends Controller
 {
@@ -37,6 +38,8 @@ class CampaignsController extends Controller
 
     public function store(StoreCampaignRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $campaign = Campaign::create($request->all());
 
         return redirect()->route('admin.campaigns.index');

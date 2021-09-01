@@ -10,6 +10,7 @@ use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class CustomerAddressController extends Controller
 {
@@ -31,6 +32,8 @@ class CustomerAddressController extends Controller
 
     public function store(StoreCustomerAddressRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $customerAddress = CustomerAddress::create($request->all());
 
         return redirect()->route('admin.customer-addresses.index');

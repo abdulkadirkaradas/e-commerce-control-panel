@@ -12,6 +12,7 @@ use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class ShoppingCartController extends Controller
 {
@@ -37,6 +38,8 @@ class ShoppingCartController extends Controller
 
     public function store(StoreShoppingCartRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $shoppingCart = ShoppingCart::create($request->all());
 
         return redirect()->route('admin.shopping-carts.index');

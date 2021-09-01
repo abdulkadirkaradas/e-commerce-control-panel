@@ -11,6 +11,7 @@ use App\Models\FaqCategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class FaqController extends Controller
 {
@@ -34,6 +35,8 @@ class FaqController extends Controller
 
     public function store(StoreFaqRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $faq = Faq::create($request->all());
 
         return redirect()->route('admin.faqs.index');

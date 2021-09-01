@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -35,6 +36,8 @@ class BannerController extends Controller
 
     public function store(StoreBannerRequest $request)
     {
+        $uuid = Str::uuid();
+        $request->request->add(['id' => $uuid]);
         $banner = Banner::create($request->all());
 
         if ($request->input('banner', false)) {
