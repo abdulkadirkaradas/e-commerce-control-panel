@@ -25,18 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.shoppingCart.fields.customer_uuid') }}
+                            {{ trans('cruds.shoppingCart.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $shoppingCart->customer_uuid->name ?? '' }}
+                            {{ $shoppingCart->customer_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.shoppingCart.fields.product_uuid') }}
+                            {{ trans('cruds.shoppingCart.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $shoppingCart->product_uuid->name ?? '' }}
+                            {{ $shoppingCart->product_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

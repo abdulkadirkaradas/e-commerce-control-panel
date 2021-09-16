@@ -52,7 +52,7 @@
                                 {{ $faq->id ?? '' }}
                             </td>
                             <td>
-                                {{ $faq->category->category ?? '' }}
+                                {{ $faq->category->id ?? '' }}
                             </td>
                             <td>
                                 {{ $faq->question ?? '' }}

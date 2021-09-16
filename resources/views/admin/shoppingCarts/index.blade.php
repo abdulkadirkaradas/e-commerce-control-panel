@@ -23,16 +23,16 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.shoppingCart.fields.id') }}
+                            {{ trans('cruds.shoppingCart.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.shoppingCart.fields.customer_uuid') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.shoppingCart.fields.product_uuid') }}
+                            {{ trans('cruds.shoppingCart.fields.product_id') }}
                         </th>
                         <th>
                             {{ trans('cruds.shoppingCart.fields.quantity') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.shoppingCart.fields.id') }}
                         </th>
                         <th>
                             &nbsp;
@@ -49,10 +49,10 @@
                                 {{ $shoppingCart->id ?? '' }}
                             </td>
                             <td>
-                                {{ $shoppingCart->customer_uuid->name ?? '' }}
+                                {{ $shoppingCart->customer_id->id ?? '' }}
                             </td>
                             <td>
-                                {{ $shoppingCart->product_uuid->name ?? '' }}
+                                {{ $shoppingCart->product_id->id ?? '' }}
                             </td>
                             <td>
                                 {{ $shoppingCart->quantity ?? '' }}

@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class CustomerAddress extends Model
 {
@@ -26,6 +27,16 @@ class CustomerAddress extends Model
 
     public $table = 'customer_addresses';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -33,8 +44,7 @@ class CustomerAddress extends Model
     ];
 
     protected $fillable = [
-        'id',
-        'customer_uuid',
+        'customer_id',
         'province',
         'district',
         'quarter',

@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.productDetail.fields.product_uuid') }}
+                            {{ trans('cruds.productDetail.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $productDetail->product_uuid->name ?? '' }}
+                            {{ $productDetail->product_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

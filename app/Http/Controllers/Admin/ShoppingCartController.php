@@ -12,7 +12,6 @@ use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ShoppingCartController extends Controller
 {
@@ -20,7 +19,7 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $shoppingCarts = ShoppingCart::with(['customer_uuid', 'product_uuid'])->get();
+        $shoppingCarts = ShoppingCart::with(['customer_id', 'product_id'])->get();
 
         return view('admin.shoppingCarts.index', compact('shoppingCarts'));
     }
@@ -29,17 +28,15 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.shoppingCarts.create', compact('customer_uuids', 'product_uuids'));
+        return view('admin.shoppingCarts.create', compact('customer_ids', 'product_ids'));
     }
 
     public function store(StoreShoppingCartRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $shoppingCart = ShoppingCart::create($request->all());
 
         return redirect()->route('admin.shopping-carts.index');
@@ -49,13 +46,13 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $shoppingCart->load('customer_uuid', 'product_uuid');
+        $shoppingCart->load('customer_id', 'product_id');
 
-        return view('admin.shoppingCarts.edit', compact('customer_uuids', 'product_uuids', 'shoppingCart'));
+        return view('admin.shoppingCarts.edit', compact('customer_ids', 'product_ids', 'shoppingCart'));
     }
 
     public function update(UpdateShoppingCartRequest $request, ShoppingCart $shoppingCart)
@@ -69,7 +66,7 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $shoppingCart->load('customer_uuid', 'product_uuid');
+        $shoppingCart->load('customer_id', 'product_id');
 
         return view('admin.shoppingCarts.show', compact('shoppingCart'));
     }

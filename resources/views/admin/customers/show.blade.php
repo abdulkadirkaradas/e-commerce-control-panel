@@ -60,7 +60,7 @@
                             {{ trans('cruds.customer.fields.address') }}
                         </th>
                         <td>
-                            {{ $customer->address->address ?? '' }}
+                            {{ $customer->address->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

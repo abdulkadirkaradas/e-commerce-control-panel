@@ -41,18 +41,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.campaign.fields.customer_uuid') }}
+                            {{ trans('cruds.campaign.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $campaign->customer_uuid->name ?? '' }}
+                            {{ $campaign->customer_id->->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.campaign.fields.product_uuid') }}
+                            {{ trans('cruds.campaign.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $campaign->product_uuid->name ?? '' }}
+                            {{ $campaign->product_id->->id ?? '' }}
                         </td>
                     </tr>
                 </tbody>

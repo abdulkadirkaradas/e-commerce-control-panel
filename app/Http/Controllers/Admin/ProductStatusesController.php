@@ -10,7 +10,6 @@ use App\Models\ProductStatus;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ProductStatusesController extends Controller
 {
@@ -32,8 +31,6 @@ class ProductStatusesController extends Controller
 
     public function store(StoreProductStatusRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $productStatus = ProductStatus::create($request->all());
 
         return redirect()->route('admin.product-statuses.index');

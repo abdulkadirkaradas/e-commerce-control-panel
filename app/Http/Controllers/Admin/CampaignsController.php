@@ -12,7 +12,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class CampaignsController extends Controller
 {
@@ -20,7 +19,7 @@ class CampaignsController extends Controller
     {
         abort_if(Gate::denies('campaign_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $campaigns = Campaign::with(['customer_uuid', 'product_uuid'])->get();
+        $campaigns = Campaign::with(['customer_id', 'product_id'])->get();
 
         return view('admin.campaigns.index', compact('campaigns'));
     }
@@ -29,17 +28,15 @@ class CampaignsController extends Controller
     {
         abort_if(Gate::denies('campaign_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.campaigns.create', compact('customer_uuids', 'product_uuids'));
+        return view('admin.campaigns.create', compact('customer_ids', 'product_ids'));
     }
 
     public function store(StoreCampaignRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $campaign = Campaign::create($request->all());
 
         return redirect()->route('admin.campaigns.index');
@@ -49,13 +46,13 @@ class CampaignsController extends Controller
     {
         abort_if(Gate::denies('campaign_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $campaign->load('customer_uuid', 'product_uuid');
+        $campaign->load('customer_id', 'product_id');
 
-        return view('admin.campaigns.edit', compact('customer_uuids', 'product_uuids', 'campaign'));
+        return view('admin.campaigns.edit', compact('customer_ids', 'product_ids', 'campaign'));
     }
 
     public function update(UpdateCampaignRequest $request, Campaign $campaign)
@@ -69,7 +66,7 @@ class CampaignsController extends Controller
     {
         abort_if(Gate::denies('campaign_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $campaign->load('customer_uuid', 'product_uuid');
+        $campaign->load('customer_id', 'product_id');
 
         return view('admin.campaigns.show', compact('campaign'));
     }

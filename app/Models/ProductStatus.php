@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class ProductStatus extends Model
 {
@@ -14,6 +15,16 @@ class ProductStatus extends Model
 
     public $table = 'product_statuses';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,7 +32,6 @@ class ProductStatus extends Model
     ];
 
     protected $fillable = [
-        'id',
         'status',
         'created_at',
         'updated_at',

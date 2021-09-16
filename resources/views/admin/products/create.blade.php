@@ -10,32 +10,32 @@
         <form method="POST" action="{{ route("admin.products.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="category_uuid_id">{{ trans('cruds.product.fields.category_uuid') }}</label>
-                <select class="form-control select2 {{ $errors->has('category_uuid') ? 'is-invalid' : '' }}" name="category_uuid_id" id="category_uuid_id">
-                    @foreach($category_uuids as $id => $entry)
-                        <option value="{{ $id }}" {{ old('category_uuid_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="category_id">{{ trans('cruds.product.fields.category_id') }}</label>
+                <select class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}" name="category_id" id="category_id">
+                    @foreach($category_ids as $id => $entry)
+                        <option value="{{ $id }}" {{ old('category_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('category_uuid'))
+                @if($errors->has('category_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('category_uuid') }}
+                        {{ $errors->first('category_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.category_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.category_id_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="status_uuid_id">{{ trans('cruds.product.fields.status_uuid') }}</label>
-                <select class="form-control select2 {{ $errors->has('status_uuid') ? 'is-invalid' : '' }}" name="status_uuid_id" id="status_uuid_id">
-                    @foreach($status_uuids as $id => $entry)
-                        <option value="{{ $id }}" {{ old('status_uuid_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="status_id">{{ trans('cruds.product.fields.status_id') }}</label>
+                <select class="form-control select2 {{ $errors->has('status_id') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
+                    @foreach($status_ids as $id => $entry)
+                        <option value="{{ $id }}" {{ old('status_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('status_uuid'))
+                @if($errors->has('status_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('status_uuid') }}
+                        {{ $errors->first('status_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.status_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.status_id_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="name">{{ trans('cruds.product.fields.name') }}</label>

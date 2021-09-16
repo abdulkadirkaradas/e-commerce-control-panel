@@ -1,3 +1,4 @@
+@extends('layouts.admin')
 @section('content')
 @can('product_category_create')
     <div style="margin-bottom: 10px;" class="row">

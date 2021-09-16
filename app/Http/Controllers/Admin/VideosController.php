@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class VideosController extends Controller
 {
@@ -36,8 +35,6 @@ class VideosController extends Controller
 
     public function store(StoreVideoRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $video = Video::create($request->all());
 
         if ($request->input('file', false)) {

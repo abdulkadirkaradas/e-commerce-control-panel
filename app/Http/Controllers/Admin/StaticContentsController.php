@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class StaticContentsController extends Controller
 {
@@ -23,6 +22,7 @@ class StaticContentsController extends Controller
         abort_if(Gate::denies('static_content_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $staticContents = StaticContent::all();
+        // dd($staticContents);
 
         return view('admin.staticContents.index', compact('staticContents'));
     }
@@ -36,8 +36,6 @@ class StaticContentsController extends Controller
 
     public function store(StoreStaticContentRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $staticContent = StaticContent::create($request->all());
 
         if ($media = $request->input('ck-media', false)) {

@@ -12,7 +12,6 @@ class CreateMediaTable extends Migration
             $table->uuid('id')->primary();
 
             $table->morphs('model');
-            $table->uuid('uuid')->nullable();
             $table->string('collection_name');
             $table->string('name');
             $table->string('file_name');

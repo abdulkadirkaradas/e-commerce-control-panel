@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Str;
 
 class Video extends Model implements HasMedia
 {
@@ -17,6 +18,16 @@ class Video extends Model implements HasMedia
     use HasFactory;
 
     public $table = 'videos';
+
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
 
     protected $appends = [
         'file',
@@ -29,7 +40,6 @@ class Video extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'id',
         'description',
         'type',
         'video',

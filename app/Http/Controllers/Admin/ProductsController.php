@@ -12,7 +12,6 @@ use App\Models\ProductStatus;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
@@ -20,7 +19,7 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::with(['category_uuid', 'status_uuid'])->get();
+        $products = Product::with(['category_id', 'status_id'])->get();
 
         return view('admin.products.index', compact('products'));
     }
@@ -29,17 +28,15 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $category_uuids = ProductCategory::pluck('category_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $category_ids = ProductCategory::pluck('category_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $status_uuids = ProductStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $status_ids = ProductStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.create', compact('category_uuids', 'status_uuids'));
+        return view('admin.products.create', compact('category_ids', 'status_ids'));
     }
 
     public function store(StoreProductRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $product = Product::create($request->all());
 
         return redirect()->route('admin.products.index');
@@ -49,13 +46,13 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $category_uuids = ProductCategory::pluck('category_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $category_ids = ProductCategory::pluck('category_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $status_uuids = ProductStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $status_ids = ProductStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product->load('category_uuid', 'status_uuid');
+        $product->load('category_id', 'status_id');
 
-        return view('admin.products.edit', compact('category_uuids', 'status_uuids', 'product'));
+        return view('admin.products.edit', compact('category_ids', 'status_ids', 'product'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
@@ -69,7 +66,7 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('category_uuid', 'status_uuid');
+        $product->load('category_id', 'status_id');
 
         return view('admin.products.show', compact('product'));
     }

@@ -17,7 +17,7 @@ class UpdateCustomerAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_uuid' => [
+            'customer_id' => [
                 'string',
                 'nullable',
             ],

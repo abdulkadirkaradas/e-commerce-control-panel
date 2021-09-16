@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Campaign extends Model
 {
@@ -14,6 +15,16 @@ class Campaign extends Model
 
     public $table = 'campaigns';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,24 +32,23 @@ class Campaign extends Model
     ];
 
     protected $fillable = [
-        'id',
         'name',
         'description',
-        'customer_uuid_id',
-        'product_uuid_id',
+        'customer_id',
+        'product_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function customer_uuid()
+    public function customer_id()
     {
-        return $this->belongsTo(Customer::class, 'customer_uuid_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function product_uuid()
+    public function product_id()
     {
-        return $this->belongsTo(Product::class, 'product_uuid_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

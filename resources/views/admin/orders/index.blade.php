@@ -29,19 +29,16 @@
                             {{ trans('cruds.order.fields.order_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.order.fields.products_uuid') }}
+                            {{ trans('cruds.order.fields.products_id') }}
                         </th>
                         <th>
                             {{ trans('cruds.product.fields.price') }}
                         </th>
                         <th>
-                            {{ trans('cruds.order.fields.customer_uuid') }}
+                            {{ trans('cruds.order.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.customer.fields.surname') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.order.fields.address_uuid') }}
+                            {{ trans('cruds.order.fields.address_id') }}
                         </th>
                         <th>
                             {{ trans('cruds.order.fields.price') }}
@@ -64,19 +61,16 @@
                                 {{ $order->order_name ?? '' }}
                             </td>
                             <td>
-                                {{ $order->products_uuid->name ?? '' }}
+                                {{ $order->products_id->id ?? '' }}
                             </td>
                             <td>
-                                {{ $order->products_uuid->price ?? '' }}
+                                {{ $order->products_id->price ?? '' }}
                             </td>
                             <td>
-                                {{ $order->customer_uuid->name ?? '' }}
+                                {{ $order->customer_id->id ?? '' }}
                             </td>
                             <td>
-                                {{ $order->customer_uuid->surname ?? '' }}
-                            </td>
-                            <td>
-                                {{ $order->address_uuid->address ?? '' }}
+                                {{ $order->address_id->id ?? '' }}
                             </td>
                             <td>
                                 {{ $order->price->price ?? '' }}

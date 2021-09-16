@@ -11,14 +11,14 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="customer_uuid">{{ trans('cruds.customerAddress.fields.customer_uuid') }}</label>
-                <input class="form-control {{ $errors->has('customer_uuid') ? 'is-invalid' : '' }}" type="text" name="customer_uuid" id="customer_uuid" value="{{ old('customer_uuid', $customerAddress->customer_uuid) }}">
-                @if($errors->has('customer_uuid'))
+                <label for="customer_id">{{ trans('cruds.customerAddress.fields.customer_id') }}</label>
+                <input class="form-control {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" type="text" name="customer_id" id="customer_id" value="{{ old('customer_id', $customerAddress->customer_id) }}">
+                @if($errors->has('customer_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('customer_uuid') }}
+                        {{ $errors->first('customer_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.customerAddress.fields.customer_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.customerAddress.fields.customer_id_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.customerAddress.fields.province') }}</label>

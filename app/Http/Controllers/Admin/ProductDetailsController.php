@@ -11,7 +11,6 @@ use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ProductDetailsController extends Controller
 {
@@ -19,7 +18,7 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productDetails = ProductDetail::with(['product_uuid'])->get();
+        $productDetails = ProductDetail::with(['product_id'])->get();
 
         return view('admin.productDetails.index', compact('productDetails'));
     }
@@ -28,15 +27,13 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.productDetails.create', compact('product_uuids'));
+        return view('admin.productDetails.create', compact('product_ids'));
     }
 
     public function store(StoreProductDetailRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $productDetail = ProductDetail::create($request->all());
 
         return redirect()->route('admin.product-details.index');
@@ -46,11 +43,11 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $productDetail->load('product_uuid');
+        $productDetail->load('product_id');
 
-        return view('admin.productDetails.edit', compact('product_uuids', 'productDetail'));
+        return view('admin.productDetails.edit', compact('product_ids', 'productDetail'));
     }
 
     public function update(UpdateProductDetailRequest $request, ProductDetail $productDetail)
@@ -64,7 +61,7 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productDetail->load('product_uuid');
+        $productDetail->load('product_id');
 
         return view('admin.productDetails.show', compact('productDetail'));
     }

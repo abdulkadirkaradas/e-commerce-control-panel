@@ -33,26 +33,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.order.fields.products_uuid') }}
+                            {{ trans('cruds.order.fields.products_id') }}
                         </th>
                         <td>
-                            {{ $order->products_uuid->name ?? '' }}
+                            {{ $order->products_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.order.fields.customer_uuid') }}
+                            {{ trans('cruds.order.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $order->customer_uuid->name ?? '' }}
+                            {{ $order->customer_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.order.fields.address_uuid') }}
+                            {{ trans('cruds.order.fields.address_id') }}
                         </th>
                         <td>
-                            {{ $order->address_uuid->address ?? '' }}
+                            {{ $order->address_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

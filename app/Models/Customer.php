@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Customer extends Model
 {
@@ -14,6 +15,16 @@ class Customer extends Model
     use HasFactory;
 
     public $table = 'customers';
+
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
 
     protected $hidden = [
         'password',
@@ -27,7 +38,6 @@ class Customer extends Model
     ];
 
     protected $fillable = [
-        'id',
         'name',
         'surname',
         'date_of_birth',

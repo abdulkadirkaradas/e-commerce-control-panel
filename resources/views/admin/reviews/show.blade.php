@@ -25,18 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.review.fields.customer_uuid') }}
+                            {{ trans('cruds.review.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $review->customer_uuid }}
+                            {{ $review->customer_id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.review.fields.product_uuid') }}
+                            {{ trans('cruds.review.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $review->product_uuid }}
+                            {{ $review->product_id }}
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +60,7 @@
                             {{ trans('cruds.review.fields.attachment') }}
                         </th>
                         <td>
-                            {{ $review->attachment->name ?? '' }}
+                            {{ $review->attachment->id ?? '' }}
                         </td>
                     </tr>
                 </tbody>

@@ -25,18 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.category_uuid') }}
+                            {{ trans('cruds.product.fields.category_id') }}
                         </th>
                         <td>
-                            {{ $product->category_uuid->category_name ?? '' }}
+                            {{ $product->category_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.status_uuid') }}
+                            {{ trans('cruds.product.fields.status_id') }}
                         </th>
                         <td>
-                            {{ $product->status_uuid->status ?? '' }}
+                            {{ $product->status_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

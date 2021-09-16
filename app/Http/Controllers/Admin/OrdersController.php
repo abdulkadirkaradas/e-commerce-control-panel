@@ -13,7 +13,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class OrdersController extends Controller
 {
@@ -21,7 +20,7 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::with(['products_uuid', 'customer_uuid', 'address_uuid', 'price'])->get();
+        $orders = Order::with(['products_id', 'customer_id', 'address_id', 'price'])->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -30,21 +29,19 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $products_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $address_uuids = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $address_ids = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $prices = Product::pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.orders.create', compact('products_uuids', 'customer_uuids', 'address_uuids', 'prices'));
+        return view('admin.orders.create', compact('products_ids', 'customer_ids', 'address_ids', 'prices'));
     }
 
     public function store(StoreOrderRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $order = Order::create($request->all());
 
         return redirect()->route('admin.orders.index');
@@ -54,17 +51,17 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products_uuids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $products_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $customer_uuids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $customer_ids = Customer::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $address_uuids = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $address_ids = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $prices = Product::pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $order->load('products_uuid', 'customer_uuid', 'address_uuid', 'price');
+        $order->load('products_id', 'customer_id', 'address_id', 'price');
 
-        return view('admin.orders.edit', compact('products_uuids', 'customer_uuids', 'address_uuids', 'prices', 'order'));
+        return view('admin.orders.edit', compact('products_ids', 'customer_ids', 'address_ids', 'prices', 'order'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)
@@ -78,7 +75,7 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('products_uuid', 'customer_uuid', 'address_uuid', 'price');
+        $order->load('products_id', 'customer_id', 'address_id', 'price');
 
         return view('admin.orders.show', compact('order'));
     }

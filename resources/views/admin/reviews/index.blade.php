@@ -26,10 +26,10 @@
                             {{ trans('cruds.review.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.review.fields.customer_uuid') }}
+                            {{ trans('cruds.review.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.review.fields.product_uuid') }}
+                            {{ trans('cruds.review.fields.product_id') }}
                         </th>
                         <th>
                             {{ trans('cruds.review.fields.rate_score') }}
@@ -55,10 +55,10 @@
                                 {{ $review->id ?? '' }}
                             </td>
                             <td>
-                                {{ $review->customer_uuid ?? '' }}
+                                {{ $review->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ $review->product_uuid ?? '' }}
+                                {{ $review->product_id ?? '' }}
                             </td>
                             <td>
                                 {{ $review->rate_score ?? '' }}
@@ -67,7 +67,7 @@
                                 {{ $review->review ?? '' }}
                             </td>
                             <td>
-                                {{ $review->attachment->name ?? '' }}
+                                {{ $review->attachment->id ?? '' }}
                             </td>
                             <td>
                                 @can('review_show')

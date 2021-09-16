@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyFaqRequest;
 use App\Http\Requests\StoreFaqRequest;
 use App\Http\Requests\UpdateFaqRequest;
+use App\Models\Customer;
 use App\Models\Faq;
 use App\Models\FaqCategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class FaqController extends Controller
 {
@@ -20,6 +20,7 @@ class FaqController extends Controller
         abort_if(Gate::denies('faq_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $faqs = Faq::with(['category'])->get();
+        // dd($faqs);
 
         return view('admin.faqs.index', compact('faqs'));
     }
@@ -35,8 +36,6 @@ class FaqController extends Controller
 
     public function store(StoreFaqRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $faq = Faq::create($request->all());
 
         return redirect()->route('admin.faqs.index');

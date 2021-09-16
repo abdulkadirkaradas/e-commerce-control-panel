@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class ProductCategory extends Model
 {
@@ -14,6 +15,16 @@ class ProductCategory extends Model
 
     public $table = 'product_categories';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,7 +32,6 @@ class ProductCategory extends Model
     ];
 
     protected $fillable = [
-        'id',
         'category_name',
         'created_at',
         'updated_at',

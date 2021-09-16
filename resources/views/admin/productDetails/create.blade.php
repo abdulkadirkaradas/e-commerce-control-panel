@@ -10,18 +10,18 @@
         <form method="POST" action="{{ route("admin.product-details.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="product_uuid_id">{{ trans('cruds.productDetail.fields.product_uuid') }}</label>
-                <select class="form-control select2 {{ $errors->has('product_uuid') ? 'is-invalid' : '' }}" name="product_uuid_id" id="product_uuid_id">
-                    @foreach($product_uuids as $id => $entry)
-                        <option value="{{ $id }}" {{ old('product_uuid_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="product_id">{{ trans('cruds.productDetail.fields.product_id') }}</label>
+                <select class="form-control select2 {{ $errors->has('product_id') ? 'is-invalid' : '' }}" name="product_id" id="product_id">
+                    @foreach($product_ids as $id => $entry)
+                        <option value="{{ $id }}" {{ old('product_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('product_uuid'))
+                @if($errors->has('product_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('product_uuid') }}
+                        {{ $errors->first('product_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.productDetail.fields.product_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.productDetail.fields.product_id_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="details">{{ trans('cruds.productDetail.fields.details') }}</label>

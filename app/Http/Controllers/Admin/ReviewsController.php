@@ -11,7 +11,6 @@ use App\Models\ReviewAttachment;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ReviewsController extends Controller
 {
@@ -35,8 +34,6 @@ class ReviewsController extends Controller
 
     public function store(StoreReviewRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $review = Review::create($request->all());
 
         return redirect()->route('admin.reviews.index');

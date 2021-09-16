@@ -10,8 +10,6 @@ class CreateFavoritesTable extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('customer_uuid')->nullable();
-            $table->string('product_uuid')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

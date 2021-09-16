@@ -10,8 +10,8 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('customer_uuid')->nullable();
-            $table->string('product_uuid')->nullable();
+            $table->string('customer_id')->nullable();
+            $table->string('product_id')->nullable();
             $table->string('rate_score')->nullable();
             $table->string('review')->nullable();
             $table->timestamps();

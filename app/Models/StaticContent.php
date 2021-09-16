@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Str;
 
 class StaticContent extends Model implements HasMedia
 {
@@ -18,6 +19,16 @@ class StaticContent extends Model implements HasMedia
 
     public $table = 'static_contents';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -25,7 +36,6 @@ class StaticContent extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'id',
         'key',
         'title',
         'html_content',

@@ -10,14 +10,18 @@
         <form method="POST" action="{{ route("admin.customer-addresses.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="customer_uuid">{{ trans('cruds.customerAddress.fields.customer_uuid') }}</label>
-                <input class="form-control {{ $errors->has('customer_uuid') ? 'is-invalid' : '' }}" type="text" name="customer_uuid" id="customer_uuid" value="{{ old('customer_uuid', '') }}">
-                @if($errors->has('customer_uuid'))
+                <label for="customer_id">{{ trans('cruds.faq.fields.category') }}</label>
+                <select class="form-control select2 {{ $errors->has('category') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
+                    @foreach($customers as $id => $entry)
+                        <option value="{{ $entry->id }}" {{ old('customer_id') == $entry->id ? 'selected' : '' }}>{{ $entry->name }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('category'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('customer_uuid') }}
+                        {{ $errors->first('category') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.customerAddress.fields.customer_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.faq.fields.category_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.customerAddress.fields.province') }}</label>

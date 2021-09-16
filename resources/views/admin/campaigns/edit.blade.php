@@ -31,32 +31,32 @@
                 <span class="help-block">{{ trans('cruds.campaign.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="customer_uuid_id">{{ trans('cruds.campaign.fields.customer_uuid') }}</label>
-                <select class="form-control select2 {{ $errors->has('customer_uuid') ? 'is-invalid' : '' }}" name="customer_uuid_id" id="customer_uuid_id">
-                    @foreach($customer_uuids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('customer_uuid_id') ? old('customer_uuid_id') : $campaign->customer_uuid->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="customer_id">{{ trans('cruds.campaign.fields.customer_id') }}</label>
+                <select class="form-control select2 {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
+                    @foreach($customer_ids as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $campaign->customer_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('customer_uuid'))
+                @if($errors->has('customer_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('customer_uuid') }}
+                        {{ $errors->first('customer_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.campaign.fields.customer_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.campaign.fields.customer_id_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="product_uuid_id">{{ trans('cruds.campaign.fields.product_uuid') }}</label>
-                <select class="form-control select2 {{ $errors->has('product_uuid') ? 'is-invalid' : '' }}" name="product_uuid_id" id="product_uuid_id">
-                    @foreach($product_uuids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('product_uuid_id') ? old('product_uuid_id') : $campaign->product_uuid->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="product_id">{{ trans('cruds.campaign.fields.product_id') }}</label>
+                <select class="form-control select2 {{ $errors->has('product_id') ? 'is-invalid' : '' }}" name="product_id" id="product_id">
+                    @foreach($product_ids as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('product_id') ? old('product_id') : $campaign->product_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('product_uuid'))
+                @if($errors->has('product_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('product_uuid') }}
+                        {{ $errors->first('product_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.campaign.fields.product_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.campaign.fields.product_id_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

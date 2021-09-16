@@ -10,7 +10,6 @@ use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ProductCategoriesController extends Controller
 {
@@ -32,8 +31,6 @@ class ProductCategoriesController extends Controller
 
     public function store(StoreProductCategoryRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $productCategory = ProductCategory::create($request->all());
 
         return redirect()->route('admin.product-categories.index');

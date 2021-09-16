@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Review extends Model
 {
@@ -14,6 +15,16 @@ class Review extends Model
 
     public $table = 'reviews';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,9 +32,8 @@ class Review extends Model
     ];
 
     protected $fillable = [
-        'id',
-        'customer_uuid',
-        'product_uuid',
+        'customer_id',
+        'product_id',
         'rate_score',
         'review',
         'attachment_id',

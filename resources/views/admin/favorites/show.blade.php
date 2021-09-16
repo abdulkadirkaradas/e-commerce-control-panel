@@ -25,18 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.favorite.fields.customer_uuid') }}
+                            {{ trans('cruds.favorite.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $favorite->customer_uuid }}
+                            {{ $favorite->customer_id->id ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.favorite.fields.product_uuid') }}
+                            {{ trans('cruds.favorite.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $favorite->product_uuid }}
+                            {{ $favorite->product_id->id ?? '' }}
                         </td>
                     </tr>
                 </tbody>

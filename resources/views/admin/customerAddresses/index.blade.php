@@ -26,7 +26,7 @@
                             {{ trans('cruds.customerAddress.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.customerAddress.fields.customer_uuid') }}
+                            {{ trans('cruds.customerAddress.fields.customer_id') }}
                         </th>
                         <th>
                             {{ trans('cruds.customerAddress.fields.province') }}
@@ -58,7 +58,7 @@
                                 {{ $customerAddress->id ?? '' }}
                             </td>
                             <td>
-                                {{ $customerAddress->customer_uuid ?? '' }}
+                                {{ $customerAddress->customer_id ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\CustomerAddress::PROVINCE_SELECT[$customerAddress->province] ?? '' }}

@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Favorite extends Model
 {
@@ -14,6 +15,16 @@ class Favorite extends Model
 
     public $table = 'favorites';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,13 +32,22 @@ class Favorite extends Model
     ];
 
     protected $fillable = [
-        'id',
-        'customer_uuid',
-        'product_uuid',
+        'customer_id',
+        'product_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function customer_id()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function product_id()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

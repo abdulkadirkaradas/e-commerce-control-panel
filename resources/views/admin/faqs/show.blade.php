@@ -28,7 +28,7 @@
                             {{ trans('cruds.faq.fields.category') }}
                         </th>
                         <td>
-                            {{ $faq->category->category ?? '' }}
+                            {{ $faq->category->id ?? '' }}
                         </td>
                     </tr>
                     <tr>

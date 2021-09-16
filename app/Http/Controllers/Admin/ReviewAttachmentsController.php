@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Str;
 
 class ReviewAttachmentsController extends Controller
 {
@@ -36,8 +35,6 @@ class ReviewAttachmentsController extends Controller
 
     public function store(StoreReviewAttachmentRequest $request)
     {
-        $uuid = Str::uuid();
-        $request->request->add(['id' => $uuid]);
         $reviewAttachment = ReviewAttachment::create($request->all());
 
         if ($request->input('attachment', false)) {

@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.customerAddress.fields.customer_uuid') }}
+                            {{ trans('cruds.customerAddress.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $customerAddress->customer_uuid }}
+                            {{ $customerAddress->customer_id }}
                         </td>
                     </tr>
                     <tr>

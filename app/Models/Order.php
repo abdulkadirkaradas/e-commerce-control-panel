@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -14,6 +15,16 @@ class Order extends Model
 
     public $table = 'orders';
 
+	protected $keyType = 'string';
+    public $incrementing = false;
+    public $primaryKey = 'id';
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->id = (string)Str::uuid();
+        });
+    }
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -21,30 +32,29 @@ class Order extends Model
     ];
 
     protected $fillable = [
-        'id',
         'order_name',
-        'products_uuid_id',
-        'customer_uuid_id',
-        'address_uuid_id',
+        'products_id',
+        'customer_id',
+        'address_id',
         'price_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function products_uuid()
+    public function products_id()
     {
-        return $this->belongsTo(Product::class, 'products_uuid_id');
+        return $this->belongsTo(Product::class, 'products_id');
     }
 
-    public function customer_uuid()
+    public function customer_id()
     {
-        return $this->belongsTo(Customer::class, 'customer_uuid_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function address_uuid()
+    public function address_id()
     {
-        return $this->belongsTo(CustomerAddress::class, 'address_uuid_id');
+        return $this->belongsTo(CustomerAddress::class, 'address_id');
     }
 
     public function price()

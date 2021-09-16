@@ -26,10 +26,10 @@
                             {{ trans('cruds.favorite.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.favorite.fields.customer_uuid') }}
+                            {{ trans('cruds.favorite.fields.customer_id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.favorite.fields.product_uuid') }}
+                            {{ trans('cruds.favorite.fields.product_id') }}
                         </th>
                         <th>
                             &nbsp;
@@ -46,10 +46,10 @@
                                 {{ $favorite->id ?? '' }}
                             </td>
                             <td>
-                                {{ $favorite->customer_uuid ?? '' }}
+                                {{ $favorite->customer_id->id ?? '' }}
                             </td>
                             <td>
-                                {{ $favorite->product_uuid ?? '' }}
+                                {{ $favorite->product_id->id ?? '' }}
                             </td>
                             <td>
                                 @can('favorite_show')

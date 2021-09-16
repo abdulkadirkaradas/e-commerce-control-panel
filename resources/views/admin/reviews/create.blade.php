@@ -10,24 +10,24 @@
         <form method="POST" action="{{ route("admin.reviews.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="customer_uuid">{{ trans('cruds.review.fields.customer_uuid') }}</label>
-                <input class="form-control {{ $errors->has('customer_uuid') ? 'is-invalid' : '' }}" type="text" name="customer_uuid" id="customer_uuid" value="{{ old('customer_uuid', '') }}">
-                @if($errors->has('customer_uuid'))
+                <label for="customer_id">{{ trans('cruds.review.fields.customer_id') }}</label>
+                <input class="form-control {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" type="text" name="customer_id" id="customer_id" value="{{ old('customer_id', '') }}">
+                @if($errors->has('customer_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('customer_uuid') }}
+                        {{ $errors->first('customer_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.review.fields.customer_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.review.fields.customer_id_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="product_uuid">{{ trans('cruds.review.fields.product_uuid') }}</label>
-                <input class="form-control {{ $errors->has('product_uuid') ? 'is-invalid' : '' }}" type="text" name="product_uuid" id="product_uuid" value="{{ old('product_uuid', '') }}">
-                @if($errors->has('product_uuid'))
+                <label for="product_id">{{ trans('cruds.review.fields.product_id') }}</label>
+                <input class="form-control {{ $errors->has('product_id') ? 'is-invalid' : '' }}" type="text" name="product_id" id="product_id" value="{{ old('product_id', '') }}">
+                @if($errors->has('product_id'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('product_uuid') }}
+                        {{ $errors->first('product_id') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.review.fields.product_uuid_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.review.fields.product_id_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="rate_score">{{ trans('cruds.review.fields.rate_score') }}</label>

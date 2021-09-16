@@ -20,7 +20,7 @@
                             {{ trans('cruds.banner.fields.id') }}
                         </th>
                         <td>
-                            {{ $banner->id }}
+                            {{ $banner->uuid }}
                         </td>
                     </tr>
                     <tr>
