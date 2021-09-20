@@ -61,16 +61,16 @@
                                 {{ $customerAddress->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\CustomerAddress::PROVINCE_SELECT[$customerAddress->province] ?? '' }}
+                                {{ $customerAddress->province ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\CustomerAddress::DISTRICT_SELECT[$customerAddress->district] ?? '' }}
+                                {{ $customerAddress->district ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\CustomerAddress::QUARTER_SELECT[$customerAddress->quarter] ?? '' }}
+                                {{ $customerAddress->quarter ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\CustomerAddress::STREET_SELECT[$customerAddress->street] ?? '' }}
+                                {{ $customerAddress->street ?? '' }}
                             </td>
                             <td>
                                 {{ $customerAddress->address ?? '' }}

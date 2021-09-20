@@ -14,7 +14,7 @@ class AddRelationshipFieldsToOrdersTable extends Migration
             $table->uuid('customer_id')->nullable();
             $table->foreign('customer_id', 'customer_id_fk_4757243')->references('id')->on('customers');
             $table->uuid('address_id')->nullable();
-            $table->foreign('address_id', 'address_id_fk_4757244')->references('id')->on('customer_addresses');
+            $table->foreign('address_id', 'address_id_fk_4757244')->references('id')->on('customer_address');
             $table->uuid('price')->nullable();
             $table->foreign('price', 'price_fk_4757276')->references('id')->on('products');
         });

@@ -13,19 +13,7 @@ class CustomerAddress extends Model
     use SoftDeletes;
     use HasFactory;
 
-    public const STREET_SELECT = [
-    ];
-
-    public const QUARTER_SELECT = [
-    ];
-
-    public const PROVINCE_SELECT = [
-    ];
-
-    public const DISTRICT_SELECT = [
-    ];
-
-    public $table = 'customer_addresses';
+    public $table = 'customer_address';
 
 	protected $keyType = 'string';
     public $incrementing = false;

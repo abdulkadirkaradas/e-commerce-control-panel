@@ -8,7 +8,7 @@ class CreateCustomerAddressesTable extends Migration
 {
     public function up()
     {
-        Schema::create('customer_addresses', function (Blueprint $table) {
+        Schema::create('customer_address', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('customer_id')->nullable();
             $table->string('province')->nullable();

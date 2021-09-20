@@ -36,7 +36,7 @@
                             {{ trans('cruds.customerAddress.fields.province') }}
                         </th>
                         <td>
-                            {{ App\Models\CustomerAddress::PROVINCE_SELECT[$customerAddress->province] ?? '' }}
+                            {{ $customerAddress->province ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +44,7 @@
                             {{ trans('cruds.customerAddress.fields.district') }}
                         </th>
                         <td>
-                            {{ App\Models\CustomerAddress::DISTRICT_SELECT[$customerAddress->district] ?? '' }}
+                            {{ $customerAddress->district ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +52,7 @@
                             {{ trans('cruds.customerAddress.fields.quarter') }}
                         </th>
                         <td>
-                            {{ App\Models\CustomerAddress::QUARTER_SELECT[$customerAddress->quarter] ?? '' }}
+                            {{ $customerAddress->quarter ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +60,7 @@
                             {{ trans('cruds.customerAddress.fields.street') }}
                         </th>
                         <td>
-                            {{ App\Models\CustomerAddress::STREET_SELECT[$customerAddress->street] ?? '' }}
+                            {{ $customerAddress->street ?? '' }}
                         </td>
                     </tr>
                     <tr>

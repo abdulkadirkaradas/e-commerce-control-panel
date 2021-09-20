@@ -27,8 +27,8 @@
                 <label>{{ trans('cruds.customerAddress.fields.province') }}</label>
                 <select class="form-control {{ $errors->has('province') ? 'is-invalid' : '' }}" name="province" id="province">
                     <option value disabled {{ old('province', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\CustomerAddress::PROVINCE_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('province', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($customerAddresses as $key => $label)
+                        <option value="{{ $label->id }}" {{ old('province', '') === (string) $label->id ? 'selected' : '' }}>{{ $label->province }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('province'))
@@ -42,8 +42,8 @@
                 <label>{{ trans('cruds.customerAddress.fields.district') }}</label>
                 <select class="form-control {{ $errors->has('district') ? 'is-invalid' : '' }}" name="district" id="district">
                     <option value disabled {{ old('district', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\CustomerAddress::DISTRICT_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('district', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($customerAddresses as $key => $label)
+                        <option value="{{ $label->id }}" {{ old('district', '') === (string) $label->id ? 'selected' : '' }}>{{ $label->province }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('district'))
@@ -57,8 +57,8 @@
                 <label>{{ trans('cruds.customerAddress.fields.quarter') }}</label>
                 <select class="form-control {{ $errors->has('quarter') ? 'is-invalid' : '' }}" name="quarter" id="quarter">
                     <option value disabled {{ old('quarter', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\CustomerAddress::QUARTER_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('quarter', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($customerAddresses as $key => $label)
+                        <option value="{{ $label->id }}" {{ old('quarter', '') === (string) $label->id ? 'selected' : '' }}>{{ $label->province }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('quarter'))
@@ -72,8 +72,8 @@
                 <label>{{ trans('cruds.customerAddress.fields.street') }}</label>
                 <select class="form-control {{ $errors->has('street') ? 'is-invalid' : '' }}" name="street" id="street">
                     <option value disabled {{ old('street', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\CustomerAddress::STREET_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('street', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($customerAddresses as $key => $label)
+                        <option value="{{ $label->id }}" {{ old('street', '') === (string) $label->id ? 'selected' : '' }}>{{ $label->province }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('street'))

@@ -10,7 +10,7 @@ class AddRelationshipFieldsToCustomersTable extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->uuid('address_id')->nullable();
-            $table->foreign('address_id', 'address_fk_4757085')->references('id')->on('customer_addresses');
+            $table->foreign('address_id', 'address_fk_4757085')->references('id')->on('customer_address');
         });
     }
 }

@@ -20,7 +20,7 @@ class MassDestroyCustomerAddressRequest extends FormRequest
     {
         return [
             'ids'   => 'required|array',
-            'ids.*' => 'exists:customer_addresses,id',
+            'ids.*' => 'exists:customer_address,id',
         ];
     }
 }

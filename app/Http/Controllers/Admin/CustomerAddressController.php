@@ -29,8 +29,9 @@ class CustomerAddressController extends Controller
         abort_if(Gate::denies('customer_address_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = Customer::select(DB::raw("id, CONCAT(name, ' ' ,surname) as name"))->get();
+        $customerAddresses = CustomerAddress::all();
 
-        return view('admin.customerAddresses.create', compact("customers"));
+        return view('admin.customerAddresses.create', compact("customerAddresses","customers"));
     }
 
     public function store(StoreCustomerAddressRequest $request)
@@ -44,7 +45,11 @@ class CustomerAddressController extends Controller
     {
         abort_if(Gate::denies('customer_address_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.customerAddresses.edit', compact('customerAddress'));
+        $customers = Customer::all();
+        $customerAddresses = CustomerAddress::all();
+        $is_empty = $customers->isEmpty() ? false : true;
+
+        return view('admin.customerAddresses.edit', compact('customerAddress', 'customers', 'is_empty'));
     }
 
     public function update(UpdateCustomerAddressRequest $request, CustomerAddress $customerAddress)
