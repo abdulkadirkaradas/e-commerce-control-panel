@@ -55,17 +55,17 @@
                                 {{ $video->description ?? '' }}
                             </td>
                             <td>
-                                {{ $video->type ?? '' }}
+                                {{ $video->type->video_type ?? '' }}
                             </td>
                             <td>
-                                @if($video->file)
-                                    <a href="{{ $video->file->getUrl() }}" target="_blank">
+                                @if($video->video_url)
+                                    <a href="{{ $video->video_url }}" target="_blank">
                                         {{ trans('global.view_file') }}
                                     </a>
                                 @endif
                             </td>
                             <td>
-                                {{ $video->video ?? '' }}
+                                {{ $video->video_url_id ?? '' }}
                             </td>
                             <td>
                                 @can('video_show')

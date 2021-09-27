@@ -8,10 +8,12 @@ use App\Http\Requests\MassDestroyVideoRequest;
 use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Models\Video;
+use App\Models\VideoType;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class VideosController extends Controller
 {
@@ -21,7 +23,7 @@ class VideosController extends Controller
     {
         abort_if(Gate::denies('video_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $videos = Video::with(['media'])->get();
+        $videos = Video::all();
 
         return view('admin.videos.index', compact('videos'));
     }
@@ -30,20 +32,36 @@ class VideosController extends Controller
     {
         abort_if(Gate::denies('video_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.videos.create');
+        $types = VideoType::pluck('video_type', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.videos.create', compact('types'));
     }
 
     public function store(StoreVideoRequest $request)
     {
-        $video = Video::create($request->all());
+        // dd($request->file("video"));
 
-        if ($request->input('file', false)) {
-            $video->addMedia(storage_path('tmp/uploads/' . basename($request->input('file'))))->toMediaCollection('file');
+        $file = $request->file("video");
+        $fileId = Str::uuid();
+        $fileName = $file->getClientOriginalName();
+        $fileExtension = $file->getClientOriginalExtension();
+
+        $video = new Video;
+        $video->description = $request->description;
+        $video->type_id = $request->type_id;
+        $video->video_url_id = $request->video_url_id;
+        $video->video_id = $fileId;
+        $video->video_name = $fileName;
+        $video->video_extension = $fileExtension;
+        $video->video_url = env("APP_URL") . "/" . "videos" . "/" . $fileId . "." . $fileExtension;
+        // $video->image_url = $fileId . "." . $fileExtension;
+        $video->save();
+
+        if(!file_exists(public_path("videos"))) {
+            mkdir(public_path('videos'), 0777, true);
         }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $video->id]);
-        }
+        $file->move(public_path("videos"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.videos.index');
     }
@@ -52,7 +70,11 @@ class VideosController extends Controller
     {
         abort_if(Gate::denies('video_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.videos.edit', compact('video'));
+        $types = VideoType::pluck('video_type', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $video->load('type');
+
+        return view('admin.videos.edit', compact('types', 'video'));
     }
 
     public function update(UpdateVideoRequest $request, Video $video)
@@ -76,6 +98,8 @@ class VideosController extends Controller
     public function show(Video $video)
     {
         abort_if(Gate::denies('video_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $video->load('type');
 
         return view('admin.videos.show', compact('video'));
     }

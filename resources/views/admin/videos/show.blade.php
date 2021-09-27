@@ -36,7 +36,7 @@
                             {{ trans('cruds.video.fields.type') }}
                         </th>
                         <td>
-                            {{ $video->type }}
+                            {{ $video->type->video_type ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -44,8 +44,8 @@
                             {{ trans('cruds.video.fields.file') }}
                         </th>
                         <td>
-                            @if($video->file)
-                                <a href="{{ $video->file->getUrl() }}" target="_blank">
+                            @if($video->video_url)
+                                <a href="{{ $video->video_url }}" target="_blank">
                                     {{ trans('global.view_file') }}
                                 </a>
                             @endif
@@ -56,7 +56,7 @@
                             {{ trans('cruds.video.fields.video') }}
                         </th>
                         <td>
-                            {{ $video->video }}
+                            {{ $video->video_url_id }}
                         </td>
                     </tr>
                 </tbody>

@@ -40,9 +40,14 @@ class Video extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'uuid',
         'description',
-        'type',
-        'video',
+        'type_id',
+        'video_url_id',
+        'video_id',
+        'video_name',
+        'video_extension',
+        'video_url',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -52,6 +57,11 @@ class Video extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(VideoType::class, 'type_id');
     }
 
     public function getFileAttribute()

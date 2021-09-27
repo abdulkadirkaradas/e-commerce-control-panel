@@ -22,7 +22,6 @@ class StoreVideoRequest extends FormRequest
                 'nullable',
             ],
             'video' => [
-                'string',
                 'nullable',
             ],
         ];

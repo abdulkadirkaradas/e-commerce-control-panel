@@ -11,8 +11,11 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->longText('description')->nullable();
-            $table->string('type')->nullable();
-            $table->string('video')->nullable();
+            $table->string('video_url_id')->nullable();
+            $table->string('video_id')->nullable();
+            $table->string('video_name')->nullable();
+            $table->string('video_extension')->nullable();
+            $table->string('video_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
