@@ -42,6 +42,11 @@ class Banner extends Model implements HasMedia
     protected $fillable = [
         'key',
         'link_url',
+        'file_id',
+        'file_name',
+        'file_extension',
+        'file_url',
+        'image_url',
         'created_at',
         'updated_at',
         'deleted_at',

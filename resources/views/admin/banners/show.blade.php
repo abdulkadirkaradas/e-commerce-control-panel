@@ -20,7 +20,7 @@
                             {{ trans('cruds.banner.fields.id') }}
                         </th>
                         <td>
-                            {{ $banner->uuid }}
+                            {{ $banner->id }}
                         </td>
                     </tr>
                     <tr>
@@ -36,9 +36,9 @@
                             {{ trans('cruds.banner.fields.banner') }}
                         </th>
                         <td>
-                            @if($banner->banner)
-                                <a href="{{ $banner->banner->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $banner->banner->getUrl('thumb') }}">
+                            @if($banner->file_url)
+                                <a href="{{ $banner->file_url }}" target="_blank" style="display: inline-block;">
+                                    <img style="width: 20%;" src="{{ asset("banners/$banner->image_url") }}">
                                 </a>
                             @endif
                         </td>

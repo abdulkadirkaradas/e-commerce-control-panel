@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -21,7 +22,8 @@ class BannerController extends Controller
     {
         abort_if(Gate::denies('banner_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $banners = Banner::with(['media'])->get();
+        $banners = Banner::all();
+        // dd($banners);
 
         return view('admin.banners.index', compact('banners'));
     }
@@ -35,15 +37,30 @@ class BannerController extends Controller
 
     public function store(StoreBannerRequest $request)
     {
-        $banner = Banner::create($request->all());
+        // dd($request->file("banner")->path());
 
-        if ($request->input('banner', false)) {
-            $banner->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
+        $file = $request->file("banner");
+        $fileId = Str::uuid();
+        $fileName = $file->getClientOriginalName();
+        $fileExtension = $file->getClientOriginalExtension();
+
+        $banner = new Banner;
+        $banner->key = $request->key;
+        $banner->link_url = $request->link_url;
+        $banner->file_id = $fileId;
+        $banner->file_name = $fileName;
+        $banner->file_extension = $fileExtension;
+        $banner->file_url = env("APP_URL") . "/" . "bannners" . "/" . $fileId . "." . $fileExtension;
+        $banner->image_url = $fileId . "." . $fileExtension;
+        $banner->save();
+
+        // $banner = Banner::create($request->all());
+
+        if(!file_exists(public_path("banners"))) {
+            mkdir(public_path('banners'), 0777, true);
         }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $banner->id]);
-        }
+        $file->move(public_path("banners"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.banners.index');
     }
