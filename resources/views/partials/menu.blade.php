@@ -130,7 +130,7 @@
             </li>
         @endcan
         @can('customer_action_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/customers*") ? "c-show" : "" }} {{ request()->is("admin/customer-addresses*") ? "c-show" : "" }} {{ request()->is("admin/customer-orders*") ? "c-show" : "" }} {{ request()->is("admin/customer-reviews*") ? "c-show" : "" }} {{ request()->is("admin/customer-favorites*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/customers*") ? "c-show" : "" }} {{ request()->is("admin/customer-address*") ? "c-show" : "" }} {{ request()->is("admin/customer-orders*") ? "c-show" : "" }} {{ request()->is("admin/customer-reviews*") ? "c-show" : "" }} {{ request()->is("admin/customer-favorites*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
 
@@ -150,7 +150,7 @@
                     @endcan
                     @can('customer_address_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.customer-addresses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/customer-addresses") || request()->is("admin/customer-addresses/*") ? "c-active" : "" }}">
+                            <a href="{{ route("admin.customer-address.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/customer-address") || request()->is("admin/customer-address/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-map-marker-alt c-sidebar-nav-icon">
 
                                 </i>

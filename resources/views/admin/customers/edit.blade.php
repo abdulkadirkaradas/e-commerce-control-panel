@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label for="address_id">{{ trans('cruds.customer.fields.address') }}</label>
                 <select class="form-control select2 {{ $errors->has('address') ? 'is-invalid' : '' }}" name="address_id" id="address_id">
-                    @foreach($addresses as $id => $entry)
+                    @foreach($Address as $id => $entry)
                         <option value="{{ $id }}" {{ (old('address_id') ? old('address_id') : $customer->address->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>

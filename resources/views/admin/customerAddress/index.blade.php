@@ -3,7 +3,7 @@
 @can('customer_address_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.customer-addresses.create') }}">
+            <a class="btn btn-success" href="{{ route('admin.customer-address.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.customerAddress.title_singular') }}
             </a>
         </div>
@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($customerAddresses as $key => $customerAddress)
+                    @foreach($customerAddress as $key => $customerAddress)
                         <tr data-entry-id="{{ $customerAddress->id }}">
                             <td>
 
@@ -77,19 +77,19 @@
                             </td>
                             <td>
                                 @can('customer_address_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.customer-addresses.show', $customerAddress->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.customer-address.show', $customerAddress->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('customer_address_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.customer-addresses.edit', $customerAddress->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.customer-address.edit', $customerAddress->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
                                 @can('customer_address_delete')
-                                    <form action="{{ route('admin.customer-addresses.destroy', $customerAddress->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.customer-address.destroy', $customerAddress->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -118,7 +118,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.customer-addresses.massDestroy') }}",
+    url: "{{ route('admin.customer-address.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

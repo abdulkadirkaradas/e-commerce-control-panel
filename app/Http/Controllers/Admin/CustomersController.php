@@ -27,9 +27,9 @@ class CustomersController extends Controller
     {
         abort_if(Gate::denies('customer_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $addresses = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $Address = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.customers.create', compact('addresses'));
+        return view('admin.customers.create', compact('Address'));
     }
 
     public function store(StoreCustomerRequest $request)
@@ -43,11 +43,11 @@ class CustomersController extends Controller
     {
         abort_if(Gate::denies('customer_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $addresses = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $Address = CustomerAddress::pluck('address', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $customer->load('address');
 
-        return view('admin.customers.edit', compact('addresses', 'customer'));
+        return view('admin.customers.edit', compact('Address', 'customer'));
     }
 
     public function update(UpdateCustomerRequest $request, Customer $customer)

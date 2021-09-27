@@ -19,9 +19,9 @@ class CustomerAddressController extends Controller
     {
         abort_if(Gate::denies('customer_address_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customerAddresses = CustomerAddress::all();
+        $customerAddress = CustomerAddress::all();
 
-        return view('admin.customerAddresses.index', compact('customerAddresses'));
+        return view('admin.customerAddress.index', compact('customerAddress'));
     }
 
     public function create()
@@ -29,16 +29,16 @@ class CustomerAddressController extends Controller
         abort_if(Gate::denies('customer_address_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = Customer::select(DB::raw("id, CONCAT(name, ' ' ,surname) as name"))->get();
-        $customerAddresses = CustomerAddress::all();
+        $customerAddress = CustomerAddress::all();
 
-        return view('admin.customerAddresses.create', compact("customerAddresses","customers"));
+        return view('admin.customerAddress.create', compact("customerAddress","customers"));
     }
 
     public function store(StoreCustomerAddressRequest $request)
     {
         $customerAddress = CustomerAddress::create($request->all());
 
-        return redirect()->route('admin.customer-addresses.index');
+        return redirect()->route('admin.customer-address.index');
     }
 
     public function edit(CustomerAddress $customerAddress)
@@ -46,24 +46,24 @@ class CustomerAddressController extends Controller
         abort_if(Gate::denies('customer_address_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $customers = Customer::all();
-        $customerAddresses = CustomerAddress::all();
+        $customerAddress = CustomerAddress::all();
         $is_empty = $customers->isEmpty() ? false : true;
 
-        return view('admin.customerAddresses.edit', compact('customerAddress', 'customers', 'is_empty'));
+        return view('admin.customerAddress.edit', compact('customerAddress', 'customers', 'is_empty'));
     }
 
     public function update(UpdateCustomerAddressRequest $request, CustomerAddress $customerAddress)
     {
         $customerAddress->update($request->all());
 
-        return redirect()->route('admin.customer-addresses.index');
+        return redirect()->route('admin.customer-address.index');
     }
 
     public function show(CustomerAddress $customerAddress)
     {
         abort_if(Gate::denies('customer_address_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.customerAddresses.show', compact('customerAddress'));
+        return view('admin.customerAddress.show', compact('customerAddress'));
     }
 
     public function destroy(CustomerAddress $customerAddress)
