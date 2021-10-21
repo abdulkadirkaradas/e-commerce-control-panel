@@ -19,14 +19,17 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::with(['category_id', 'status_id'])->get();
+        $products = $this->getValues(Product::with(['category_id', 'status_id'])->get());
 
-        foreach ($products as $key => $value) {
+        return view('admin.products.index', compact('products'));
+    }
+
+    private function getValues($collection) {
+        foreach ($collection as $key => $value) {
             $value->category = ProductCategory::find($value->category_id);
             $value->status = ProductStatus::find($value->status_id);
         }
-
-        return view('admin.products.index', compact('products'));
+        return $collection;
     }
 
     public function create()
@@ -71,7 +74,7 @@ class ProductsController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('category_id', 'status_id');
+        $this->getValues([$product->load('category_id', 'status_id')]);
 
         return view('admin.products.show', compact('product'));
     }

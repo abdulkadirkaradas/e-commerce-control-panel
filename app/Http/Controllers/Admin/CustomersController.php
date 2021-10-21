@@ -18,13 +18,20 @@ class CustomersController extends Controller
     {
         abort_if(Gate::denies('customer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customers = Customer::with(['address'])->get();
+        $customers = $this->getValues(Customer::with(['address'])->get());
 
         foreach ($customers as $key => $value) {
             $value->address = CustomerAddress::find($value->address_id);
         }
 
         return view('admin.customers.index', compact('customers'));
+    }
+
+    private function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->address = CustomerAddress::find($value->address_id);
+        }
+        return $collection;
     }
 
     public function create()
@@ -65,7 +72,7 @@ class CustomersController extends Controller
     {
         abort_if(Gate::denies('customer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customer->load('address');
+        $this->getValues([$customer->load('address')]);
 
         return view('admin.customers.show', compact('customer'));
     }

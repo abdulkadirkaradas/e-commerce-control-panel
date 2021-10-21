@@ -88,6 +88,8 @@ class CustomerAddressController extends Controller
     {
         abort_if(Gate::denies('customer_address_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $this->getAddress([$customerAddress]);
+
         return view('admin.customerAddress.show', compact('customerAddress'));
     }
 
