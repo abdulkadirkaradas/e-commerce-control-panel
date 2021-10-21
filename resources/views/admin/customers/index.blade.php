@@ -70,7 +70,7 @@
                                 {{ $customer->phone ?? '' }}
                             </td>
                             <td>
-                                {{ $customer->address->id ?? '' }}
+                                {{ $customer->address->address ?? '' }}
                             </td>
                             <td>
                                 {{ $customer->email ?? '' }}

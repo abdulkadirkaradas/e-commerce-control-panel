@@ -20,6 +20,10 @@ class CustomersController extends Controller
 
         $customers = Customer::with(['address'])->get();
 
+        foreach ($customers as $key => $value) {
+            $value->address = CustomerAddress::find($value->address_id);
+        }
+
         return view('admin.customers.index', compact('customers'));
     }
 
