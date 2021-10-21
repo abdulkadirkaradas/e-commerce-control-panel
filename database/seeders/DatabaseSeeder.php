@@ -14,7 +14,10 @@ class DatabaseSeeder extends Seeder
             PermissionRoleTableSeeder::class,
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
-            CustomerAddressSeeder::class,
+            ProvinceSeeder::class,
+            DisctrictSeeder::class,
+            QuarterSeeder::class,
+            StreetSeeder::class,
         ]);
     }
 }

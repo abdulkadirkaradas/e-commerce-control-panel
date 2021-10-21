@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class CustomerAddress extends Model
+class Provinces extends Model
 {
     use SoftDeletes;
     use HasFactory;
 
-    public $table = 'customer_address';
+    public $table = 'provinces';
 
 	protected $keyType = 'string';
     public $incrementing = false;
@@ -32,19 +32,11 @@ class CustomerAddress extends Model
     ];
 
     protected $fillable = [
-        'customer_id',
-        'province_id',
-        'district_id',
-        'quarter_id',
-        'street_id',
-        'address',
+        'name',
+        'zip_code',
+        'plate_code',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format('Y-m-d H:i:s');
-    }
 }

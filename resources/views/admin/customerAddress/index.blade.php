@@ -61,16 +61,16 @@
                                 {{ $customerAddress->customer_id ?? '' }}
                             </td>
                             <td>
-                                {{ $customerAddress->province ?? '' }}
+                                {{ $customerAddress->province->name ?? '' }}
                             </td>
                             <td>
-                                {{ $customerAddress->district ?? '' }}
+                                {{ $customerAddress->district->name ?? '' }}
                             </td>
                             <td>
-                                {{ $customerAddress->quarter ?? '' }}
+                                {{ $customerAddress->quarter->name ?? '' }}
                             </td>
                             <td>
-                                {{ $customerAddress->street ?? '' }}
+                                {{ $customerAddress->street->name ?? '' }}
                             </td>
                             <td>
                                 {{ $customerAddress->address ?? '' }}
