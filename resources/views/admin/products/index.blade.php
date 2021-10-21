@@ -55,10 +55,10 @@
                                 {{ $product->id ?? '' }}
                             </td>
                             <td>
-                                {{ $product->category_id->id ?? '' }}
+                                {{ $product->category->category_name ?? '' }}
                             </td>
                             <td>
-                                {{ $product->status_id->id ?? '' }}
+                                {{ $product->status->status ?? '' }}
                             </td>
                             <td>
                                 {{ $product->name ?? '' }}

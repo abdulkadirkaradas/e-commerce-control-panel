@@ -21,6 +21,11 @@ class ProductsController extends Controller
 
         $products = Product::with(['category_id', 'status_id'])->get();
 
+        foreach ($products as $key => $value) {
+            $value->category = ProductCategory::find($value->category_id);
+            $value->status = ProductStatus::find($value->status_id);
+        }
+
         return view('admin.products.index', compact('products'));
     }
 
