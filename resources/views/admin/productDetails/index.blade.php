@@ -46,10 +46,10 @@
                                 {{ $productDetail->id ?? '' }}
                             </td>
                             <td>
-                                {{ $productDetail->product_id->id ?? '' }}
+                                {{ $productDetail->product->name ?? '' }}
                             </td>
                             <td>
-                                {{ $productDetail->details ?? '' }}
+                                {!! $productDetail->details !!}
                             </td>
                             <td>
                                 @can('product_detail_show')

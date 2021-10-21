@@ -18,9 +18,16 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productDetails = ProductDetail::with(['product_id'])->get();
+        $productDetails = $this->getValues(ProductDetail::with(['product_id'])->get());
 
         return view('admin.productDetails.index', compact('productDetails'));
+    }
+
+    private function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->product = Product::find($value->product_id);
+        }
+        return $collection;
     }
 
     public function create()
@@ -61,7 +68,8 @@ class ProductDetailsController extends Controller
     {
         abort_if(Gate::denies('product_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productDetail->load('product_id');
+        $this->getValues([$productDetail->load('product_id')]);
+
 
         return view('admin.productDetails.show', compact('productDetail'));
     }
