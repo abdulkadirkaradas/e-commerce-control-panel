@@ -67,7 +67,7 @@
                                 {{ $review->review ?? '' }}
                             </td>
                             <td>
-                                {{ $review->attachment->id ?? '' }}
+                                {{ $review->attachment->name ?? '' }}
                             </td>
                             <td>
                                 @can('review_show')

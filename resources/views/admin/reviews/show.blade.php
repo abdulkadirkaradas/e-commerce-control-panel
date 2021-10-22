@@ -60,7 +60,7 @@
                             {{ trans('cruds.review.fields.attachment') }}
                         </th>
                         <td>
-                            {{ $review->attachment->id ?? '' }}
+                            {{ $review->attachment->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

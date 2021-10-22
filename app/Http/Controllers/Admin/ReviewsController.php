@@ -18,9 +18,16 @@ class ReviewsController extends Controller
     {
         abort_if(Gate::denies('review_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $reviews = Review::with(['attachment'])->get();
+        $reviews = $this->getValues(Review::with(['attachment'])->get());
 
         return view('admin.reviews.index', compact('reviews'));
+    }
+
+    private function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->attachment = ReviewAttachment::find($value->attachment_id);
+        }
+        return $collection;
     }
 
     public function create()
@@ -45,7 +52,7 @@ class ReviewsController extends Controller
 
         $attachments = ReviewAttachment::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $review->load('attachment');
+        $this->getValues([$review->load('attachment')]);
 
         return view('admin.reviews.edit', compact('attachments', 'review'));
     }
@@ -61,7 +68,7 @@ class ReviewsController extends Controller
     {
         abort_if(Gate::denies('review_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $review->load('attachment');
+        $this->getValues([$review->load('attachment')]);
 
         return view('admin.reviews.show', compact('review'));
     }
