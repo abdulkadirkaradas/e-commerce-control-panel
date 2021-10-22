@@ -19,9 +19,17 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $shoppingCarts = ShoppingCart::with(['customer_id', 'product_id'])->get();
+        $this->getValues($shoppingCarts = ShoppingCart::with(['customer_id', 'product_id'])->get());
 
         return view('admin.shoppingCarts.index', compact('shoppingCarts'));
+    }
+
+    public function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->product = Product::find($value->product_id);
+            $value->customer = Customer::find($value->customer_id);
+        }
+        return $collection;
     }
 
     public function create()
@@ -50,7 +58,7 @@ class ShoppingCartController extends Controller
 
         $product_ids = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $shoppingCart->load('customer_id', 'product_id');
+        $this->getValues([$shoppingCart->load('customer_id', 'product_id')]);
 
         return view('admin.shoppingCarts.edit', compact('customer_ids', 'product_ids', 'shoppingCart'));
     }
@@ -66,7 +74,7 @@ class ShoppingCartController extends Controller
     {
         abort_if(Gate::denies('shopping_cart_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $shoppingCart->load('customer_id', 'product_id');
+        $this->getValues([$shoppingCart->load('customer_id', 'product_id')]);
 
         return view('admin.shoppingCarts.show', compact('shoppingCart'));
     }

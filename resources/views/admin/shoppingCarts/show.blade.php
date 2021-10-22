@@ -28,7 +28,7 @@
                             {{ trans('cruds.shoppingCart.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $shoppingCart->customer_id->id ?? '' }}
+                            {{ $shoppingCart->customer->name . " " . $shoppingCart->customer->surname ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +36,7 @@
                             {{ trans('cruds.shoppingCart.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $shoppingCart->product_id->id ?? '' }}
+                            {{ $shoppingCart->product->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
