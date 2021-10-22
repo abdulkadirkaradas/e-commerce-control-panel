@@ -58,7 +58,7 @@ class ProductsController extends Controller
 
         $status_ids = ProductStatus::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product->load('category_id', 'status_id');
+        $this->getValues([$product->load('category_id', 'status_id')]);
 
         return view('admin.products.edit', compact('category_ids', 'status_ids', 'product'));
     }

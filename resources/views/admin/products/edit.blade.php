@@ -13,8 +13,8 @@
             <div class="form-group">
                 <label for="category_id">{{ trans('cruds.product.fields.category_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}" name="category_id" id="category_id">
-                    @foreach($category_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('category_id') ? old('category_id') : $product->category_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @foreach($category_ids as $id => $value)
+                        <option value="{{ $id }}" {{ (old('category_id') ? old('category_id') : $product->category_id ?? '') == $id ? 'selected' : '' }}>{{ $value }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('category_id'))
@@ -28,7 +28,7 @@
                 <label for="status_id">{{ trans('cruds.product.fields.status_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('status_id') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
                     @foreach($status_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $product->status_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $product->status_id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('status_id'))
