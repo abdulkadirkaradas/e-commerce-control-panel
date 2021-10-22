@@ -24,7 +24,7 @@
                 <label for="products_id">{{ trans('cruds.order.fields.products_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('products_id') ? 'is-invalid' : '' }}" name="products_id" id="products_id">
                     @foreach($products_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('products_id') ? old('products_id') : $order->products_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('products_id') ? old('products_id') : $order->products->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('products_id'))
@@ -38,7 +38,7 @@
                 <label for="customer_id">{{ trans('cruds.order.fields.customer_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
                     @foreach($customer_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $order->customer_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $order->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('customer_id'))
@@ -52,7 +52,7 @@
                 <label for="address_id">{{ trans('cruds.order.fields.address_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('address_id') ? 'is-invalid' : '' }}" name="address_id" id="address_id">
                     @foreach($address_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('address_id') ? old('address_id') : $order->address_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('address_id') ? old('address_id') : $order->address->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('address_id'))
@@ -61,20 +61,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.order.fields.address_id_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="price_id">{{ trans('cruds.order.fields.price') }}</label>
-                <select class="form-control select2 {{ $errors->has('price') ? 'is-invalid' : '' }}" name="price_id" id="price_id">
-                    @foreach($prices as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('price_id') ? old('price_id') : $order->price->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('price'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('price') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.order.fields.price_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

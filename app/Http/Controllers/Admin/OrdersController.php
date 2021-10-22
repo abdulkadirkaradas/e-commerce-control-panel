@@ -20,9 +20,19 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::with(['products_id', 'customer_id', 'address_id', 'price'])->get();
+        $this->getValues($orders = Order::with(['products_id', 'customer_id', 'address_id', 'price'])->get());
 
         return view('admin.orders.index', compact('orders'));
+    }
+
+    public function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->products = Product::find($value->products_id);
+            $value->customer = Customer::find($value->customer_id);
+            $value->address = CustomerAddress::find($value->address_id);
+            $value->price = Product::find($value->price_id);
+        }
+        return $collection;
     }
 
     public function create()
@@ -42,6 +52,7 @@ class OrdersController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
+        $request->merge(["price_id" => $request->products_id]);
         $order = Order::create($request->all());
 
         return redirect()->route('admin.orders.index');
@@ -59,13 +70,14 @@ class OrdersController extends Controller
 
         $prices = Product::pluck('price', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $order->load('products_id', 'customer_id', 'address_id', 'price');
+        $this->getValues([$order->load('products_id', 'customer_id', 'address_id', 'price')]);
 
         return view('admin.orders.edit', compact('products_ids', 'customer_ids', 'address_ids', 'prices', 'order'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)
     {
+        $request->merge(["price_id" => $request->products_id]);
         $order->update($request->all());
 
         return redirect()->route('admin.orders.index');
@@ -75,7 +87,7 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('products_id', 'customer_id', 'address_id', 'price');
+        $this->getValues([$order->load('products_id', 'customer_id', 'address_id', 'price')]);
 
         return view('admin.orders.show', compact('order'));
     }

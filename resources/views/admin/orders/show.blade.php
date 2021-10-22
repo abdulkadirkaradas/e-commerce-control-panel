@@ -36,7 +36,7 @@
                             {{ trans('cruds.order.fields.products_id') }}
                         </th>
                         <td>
-                            {{ $order->products_id->id ?? '' }}
+                            {{ $order->products->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +44,7 @@
                             {{ trans('cruds.order.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $order->customer_id->id ?? '' }}
+                            {{ $order->customer->name . " " . $order->customer->surname ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +52,7 @@
                             {{ trans('cruds.order.fields.address_id') }}
                         </th>
                         <td>
-                            {{ $order->address_id->id ?? '' }}
+                            {{ $order->address->address ?? '' }}
                         </td>
                     </tr>
                     <tr>

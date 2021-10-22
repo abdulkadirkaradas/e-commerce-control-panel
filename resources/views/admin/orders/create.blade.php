@@ -62,20 +62,6 @@
                 <span class="help-block">{{ trans('cruds.order.fields.address_id_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="price_id">{{ trans('cruds.order.fields.price') }}</label>
-                <select class="form-control select2 {{ $errors->has('price') ? 'is-invalid' : '' }}" name="price_id" id="price_id">
-                    @foreach($prices as $id => $entry)
-                        <option value="{{ $id }}" {{ old('price_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('price'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('price') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.order.fields.price_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
