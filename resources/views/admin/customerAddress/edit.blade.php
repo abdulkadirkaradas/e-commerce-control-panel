@@ -14,9 +14,9 @@
                 <label for="customer_id">{{ trans('cruds.customerAddress.fields.customer_id') }}</label>
                 <select class="form-control {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
                     <option value disabled {{ old('customer_id', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @if ($is_empty == true)
-                        <option value="{{ $customers[0]->id }}" {{ old('province', $customers[0]->id) === (string) $customers[0]->id ? 'selected' : '' }}>{{ $customers[0]->name.' '.$customers[0]->surname }}</option>
-                    @endif
+                    @foreach($customers as $key => $value)
+                        <option value="{{ $value->id }}" {{ old('customer_id') == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
+                    @endforeach
                 </select>
                 @if($errors->has('province'))
                     <div class="invalid-feedback">
@@ -27,9 +27,14 @@
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.customerAddress.fields.province') }}</label>
-                <select class="form-control {{ $errors->has('province') ? 'is-invalid' : '' }}" name="province" id="province">
+                <select class="form-control {{ $errors->has('province') ? 'is-invalid' : '' }}" data-id="provinces" name="province" id="province">
                     <option value disabled {{ old('province', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    <option value="{{ $customerAddress->province }}" {{ old('province', $customerAddress->province) === (string) $customerAddress->province ? 'selected' : '' }}>{{ $customerAddress->province }}</option>
+                    @foreach($provinces as $key => $value)
+                        @if ($value->id == $customerAddress->province_id)
+                            <option selected value="{{ $value->id }}">{{ $value->name }}</option>
+                        @endif
+                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                    @endforeach
                 </select>
                 @if($errors->has('province'))
                     <div class="invalid-feedback">
@@ -40,9 +45,9 @@
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.customerAddress.fields.district') }}</label>
-                <select class="form-control {{ $errors->has('district') ? 'is-invalid' : '' }}" name="district" id="district">
+                <select class="form-control {{ $errors->has('district') ? 'is-invalid' : '' }}" data-id="districts" name="district" id="district">
                     <option value disabled {{ old('district', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    <option value="{{ $customerAddress->district }}" {{ old('province', $customerAddress->district) === (string) $customerAddress->district ? 'selected' : '' }}>{{ $customerAddress->district }}</option>
+                    {{-- <option value="{{ $customerAddress->district }}" {{ old('province', $customerAddress->district) === (string) $customerAddress->district ? 'selected' : '' }}>{{ $customerAddress->district }}</option> --}}
                 </select>
                 @if($errors->has('district'))
                     <div class="invalid-feedback">
@@ -53,9 +58,9 @@
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.customerAddress.fields.quarter') }}</label>
-                <select class="form-control {{ $errors->has('quarter') ? 'is-invalid' : '' }}" name="quarter" id="quarter">
+                <select class="form-control {{ $errors->has('quarter') ? 'is-invalid' : '' }}" data-id="quarters" name="quarter" id="quarter">
                     <option value disabled {{ old('quarter', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    <option value="{{ $customerAddress->quarter }}" {{ old('province', $customerAddress->quarter) === (string) $customerAddress->quarter ? 'selected' : '' }}>{{ $customerAddress->quarter }}</option>
+                    {{-- <option value="{{ $customerAddress->quarter }}" {{ old('province', $customerAddress->quarter) === (string) $customerAddress->quarter ? 'selected' : '' }}>{{ $customerAddress->quarter }}</option> --}}
                 </select>
                 @if($errors->has('quarter'))
                     <div class="invalid-feedback">
@@ -68,7 +73,7 @@
                 <label>{{ trans('cruds.customerAddress.fields.street') }}</label>
                 <select class="form-control {{ $errors->has('street') ? 'is-invalid' : '' }}" name="street" id="street">
                     <option value disabled {{ old('street', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    <option value="{{ $customerAddress->street }}" {{ old('province', $customerAddress->street) === (string) $customerAddress->street ? 'selected' : '' }}>{{ $customerAddress->street }}</option>
+                    {{-- <option value="{{ $customerAddress->street }}" {{ old('province', $customerAddress->street) === (string) $customerAddress->street ? 'selected' : '' }}>{{ $customerAddress->street }}</option> --}}
                 </select>
                 @if($errors->has('street'))
                     <div class="invalid-feedback">
@@ -92,10 +97,102 @@
                     {{ trans('global.save') }}
                 </button>
             </div>
+
+            <input type="hidden" id="customers" value="{{ $customers }}">
+            <input type="hidden" id="customerAddress" value="{{ $customerAddress }}">
+            <input type="hidden" id="provinces" value="{{ $provinces }}">
+            <input type="hidden" id="districts" value="{{ $districts }}">
+            <input type="hidden" id="quarters" value="{{ $quarters }}">
+            <input type="hidden" id="streets" value="{{ $streets }}">
         </form>
     </div>
 </div>
 
+@endsection
 
+@section('scripts')
+@parent
+
+<script>
+    var customers = {}
+    var customerAddress = {};
+    var provinces = {};
+    var districts = {};
+    var quarters = {};
+    var streets = {};
+    var option = "";
+
+    $(document).ready(function(){
+        customers = JSON.parse($("#customers").val());
+        customerAddress = JSON.parse($("#customerAddress").val());
+        provinces = JSON.parse($("#provinces").val());
+        districts = JSON.parse($("#districts").val());
+        quarters = JSON.parse($("#quarters").val());
+        streets = JSON.parse($("#streets").val());
+
+        putData(customerAddress, customers, "#customer_id", "customer", "customer");
+        putData(customerAddress, provinces, "#province", "address", "province");
+        putData(customerAddress, districts, "#district", "address", "district");
+        putData(customerAddress, quarters, "#quarter", "address", "quarter");
+        putData(customerAddress, streets, "#street", "address", "street");
+    });
+
+    $("#province, #district, #quarter").on("change", function(){
+        if($(this).is("select") === true) {
+            var id = $(this).val();
+            var name = $(this).data("id");
+            if(name == "provinces") {
+                option = "<option value disabled {{ old('district', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>";
+                getData(id, districts, option, "#district");
+            } else if(name == "districts") {
+                option = "<option value disabled {{ old('quarter', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>";
+                getData(id, quarters, option, "#quarter");
+            } else {
+                option = "<option value disabled {{ old('street', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>";
+                getData(id, streets, option, "#street");
+            }
+        }
+    });
+
+    function getData(id, object, option, name) {
+        object.forEach(element => {
+            if(id == element._id) {
+                $(name).empty();
+                $(name).append(option);
+                $(name).append(
+                    `<option value="` + element.id + `">` + element.name + `</option>`
+                );
+            }
+        });
+    }
+
+    function putData(object, collection, selector, type, kind) {
+        if(type == "address") {
+            collection.forEach(element => {
+                if(object.province_id == element._id) {
+                    putElements(selector,  element);
+                } else if(object.district_id == element._id) {
+                    putElements(selector,  element);
+                } else if(object.quarter_id == element._id) {
+                    putElements(selector, element);
+                }
+            });
+        } else if(type == "customer") {
+            collection.forEach(element => {
+                if(object.customer_id == element.id) {
+                    putElements(selector, element);
+                }
+            });
+        }
+    }
+
+    function putElements(selector, element) {
+        if(element != null) {
+            $(selector).append(
+                `<option selected value="` + element.id + `">` + element.name + `</option>`
+            );
+        }
+    }
+</script>
 
 @endsection

@@ -70,11 +70,14 @@ class CustomerAddressController extends Controller
     {
         abort_if(Gate::denies('customer_address_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customers = Customer::all();
-        $customerAddress = CustomerAddress::all();
-        $is_empty = $customers->isEmpty() ? false : true;
+        $customers = Customer::select(DB::raw("id, CONCAT(name, ' ' ,surname) as name"))->get();
+        $provinces = Provinces::all();
+        $districts = $this->changeColumnName(Districts::all(), "province_id");
+        $quarters = $this->changeColumnName(Quarters::all(), "district_id");
+        $streets = $this->changeColumnName(Streets::all(), "quarter_id");
+        // dd($customerAddress);
 
-        return view('admin.customerAddress.edit', compact('customerAddress', 'customers', 'is_empty'));
+        return view('admin.customerAddress.edit', compact("customerAddress", "customers", "provinces", "districts", "quarters", "streets"));
     }
 
     public function update(UpdateCustomerAddressRequest $request, CustomerAddress $customerAddress)
