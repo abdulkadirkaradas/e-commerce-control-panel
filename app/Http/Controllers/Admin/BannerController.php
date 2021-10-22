@@ -41,26 +41,30 @@ class BannerController extends Controller
 
         $file = $request->file("banner");
         $fileId = Str::uuid();
-        $fileName = $file->getClientOriginalName();
-        $fileExtension = $file->getClientOriginalExtension();
+        if($file != null) {
+            $fileName = $file->getClientOriginalName();
+            $fileExtension = $file->getClientOriginalExtension();
+        }
 
         $banner = new Banner;
         $banner->key = $request->key;
         $banner->link_url = $request->link_url;
-        $banner->file_id = $fileId;
-        $banner->file_name = $fileName;
-        $banner->file_extension = $fileExtension;
-        $banner->file_url = env("APP_URL") . "/" . "bannners" . "/" . $fileId . "." . $fileExtension;
-        $banner->image_url = $fileId . "." . $fileExtension;
+        if($file != null) {
+            $banner->file_id = $fileId;
+            $banner->file_name = $fileName;
+            $banner->file_extension = $fileExtension;
+            $banner->file_url = env("APP_URL") . "/" . "site_banners" . "/" . $fileId . "." . $fileExtension;
+            $banner->image_url = $fileId . "." . $fileExtension;
+        }
         $banner->save();
 
         // $banner = Banner::create($request->all());
 
-        if(!file_exists(public_path("banners"))) {
-            mkdir(public_path('banners'), 0777, true);
+        if(!file_exists(public_path("site_banners"))) {
+            mkdir(public_path('site_banners'), 0777, true);
         }
 
-        $file->move(public_path("banners"), $fileId.'.'.$fileExtension);
+        $file->move(public_path("site_banners"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.banners.index');
     }
@@ -74,18 +78,32 @@ class BannerController extends Controller
 
     public function update(UpdateBannerRequest $request, Banner $banner)
     {
-        $banner->update($request->all());
-
-        if ($request->input('banner', false)) {
-            if (!$banner->banner || $request->input('banner') !== $banner->banner->file_name) {
-                if ($banner->banner) {
-                    $banner->banner->delete();
-                }
-                $banner->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
-            }
-        } elseif ($banner->banner) {
-            $banner->banner->delete();
+        $file = $request->file("banner");
+        $fileId = Str::uuid();
+        if($file != null) {
+            $fileName = $file->getClientOriginalName();
+            $fileExtension = $file->getClientOriginalExtension();
         }
+
+        $banner = Banner::find($banner->id);
+        $banner->key = $request->key;
+        $banner->link_url = $request->link_url;
+        if($file != null) {
+            $banner->file_id = $fileId;
+            $banner->file_name = $fileName;
+            $banner->file_extension = $fileExtension;
+            $banner->file_url = env("APP_URL") . "/" . "site_banners" . "/" . $fileId . "." . $fileExtension;
+            $banner->image_url = $fileId . "." . $fileExtension;
+        }
+        $banner->save();
+
+        // $banner = Banner::create($request->all());
+
+        if(!file_exists(public_path("site_banners"))) {
+            mkdir(public_path('site_banners'), 0777, true);
+        }
+
+        $file->move(public_path("site_banners"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.banners.index');
     }

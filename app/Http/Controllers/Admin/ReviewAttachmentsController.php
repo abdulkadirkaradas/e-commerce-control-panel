@@ -38,17 +38,21 @@ class ReviewAttachmentsController extends Controller
     {
         $file = $request->file("attachment");
         $fileId = Str::uuid();
-        $fileName = $file->getClientOriginalName();
-        $fileExtension = $file->getClientOriginalExtension();
+        if($file != null) {
+            $fileName = $file->getClientOriginalName();
+            $fileExtension = $file->getClientOriginalExtension();
+        }
 
         $attachment = new ReviewAttachment();
         $attachment->name = $request->name;
         $attachment->location = $request->location;
-        $attachment->file_id = $fileId;
-        $attachment->file_name = $fileName;
-        $attachment->file_extension = $fileExtension;
-        $attachment->file_url = env("APP_URL") . "/" . "review_attachments" . "/" . $fileId . "." . $fileExtension;
-        $attachment->image_url = $fileId . "." . $fileExtension;
+        if($file != null) {
+            $attachment->file_id = $fileId;
+            $attachment->file_name = $fileName;
+            $attachment->file_extension = $fileExtension;
+            $attachment->file_url = env("APP_URL") . "/" . "review_attachments" . "/" . $fileId . "." . $fileExtension;
+            $attachment->image_url = $fileId . "." . $fileExtension;
+        }
         $attachment->save();
 
         if(!file_exists(public_path("review_attachments"))) {

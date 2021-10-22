@@ -54,7 +54,7 @@
                             <td>
                                 @if($banner->file_url)
                                     <a href="{{ $banner->file_url }}" target="_blank" style="display: inline-block;">
-                                        <img style="width: 20%;" src="{{ asset("banners/$banner->image_url") }}">
+                                        <img style="width: 4vw" src="{{ asset("site_banners/$banner->image_url") }}">
                                     </a>
                                 @endif
                             </td>
