@@ -34,7 +34,7 @@
                 <label for="customer_id">{{ trans('cruds.campaign.fields.customer_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
                     @foreach($customer_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $campaign->customer_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('customer_id') ? old('customer_id') : $campaign->customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('customer_id'))
@@ -48,7 +48,7 @@
                 <label for="product_id">{{ trans('cruds.campaign.fields.product_id') }}</label>
                 <select class="form-control select2 {{ $errors->has('product_id') ? 'is-invalid' : '' }}" name="product_id" id="product_id">
                     @foreach($product_ids as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('product_id') ? old('product_id') : $campaign->product_id->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ (old('product_id') ? old('product_id') : $campaign->product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('product_id'))

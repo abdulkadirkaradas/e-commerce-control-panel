@@ -23,6 +23,9 @@
 
                         </th>
                         <th>
+                            {{ trans('cruds.campaign.fields.id') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.campaign.fields.name') }}
                         </th>
                         <th>
@@ -55,10 +58,10 @@
                                 {{ $campaign->description ?? '' }}
                             </td>
                             <td>
-                                {{ $campaign->customer_id->id ?? '' }}
+                                {{ $campaign->customer->name . " " . $campaign->customer->surname ?? '' }}
                             </td>
                             <td>
-                                {{ $campaign->product_id->id ?? '' }}
+                                {{ $campaign->product->name ?? '' }}
                             </td>
                             <td>
                                 @can('campaign_show')
