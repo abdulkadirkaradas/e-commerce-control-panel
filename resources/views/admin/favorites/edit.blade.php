@@ -12,7 +12,11 @@
             @csrf
             <div class="form-group">
                 <label for="customer_id">{{ trans('cruds.favorite.fields.customer_id') }}</label>
-                <input class="form-control {{ $errors->has('customer_id') ? 'is-invalid' : '' }}" type="text" name="customer_id" id="customer_id" value="{{ old('customer_id', $favorite->customer_id) }}">
+                <select class="form-control select2 {{ $errors->has('attachment') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
+                    @foreach($customers as $key => $value)
+                        <option value="{{ $value->id }}" {{ old('customer_id') == $value->id ? 'selected' : '' }}>{{ $value->name . " " . $value->surname }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('customer_id'))
                     <div class="invalid-feedback">
                         {{ $errors->first('customer_id') }}
@@ -22,7 +26,11 @@
             </div>
             <div class="form-group">
                 <label for="product_id">{{ trans('cruds.favorite.fields.product_id') }}</label>
-                <input class="form-control {{ $errors->has('product_id') ? 'is-invalid' : '' }}" type="text" name="product_id" id="product_id" value="{{ old('product_id', $favorite->product_id) }}">
+                <select class="form-control select2 {{ $errors->has('attachment') ? 'is-invalid' : '' }}" name="product_id" id="product_id">
+                    @foreach($products as $key => $value)
+                        <option value="{{ $value->id }}" {{ old('product_id') == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('product_id'))
                     <div class="invalid-feedback">
                         {{ $errors->first('product_id') }}

@@ -28,7 +28,7 @@
                             {{ trans('cruds.favorite.fields.customer_id') }}
                         </th>
                         <td>
-                            {{ $favorite->customer_id->id ?? '' }}
+                            {{ $favorite->customer->name . " " . $favorite->customer->surname ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +36,7 @@
                             {{ trans('cruds.favorite.fields.product_id') }}
                         </th>
                         <td>
-                            {{ $favorite->product_id->id ?? '' }}
+                            {{ $favorite->product->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

@@ -7,6 +7,8 @@ use App\Http\Requests\MassDestroyFavoriteRequest;
 use App\Http\Requests\StoreFavoriteRequest;
 use App\Http\Requests\UpdateFavoriteRequest;
 use App\Models\Favorite;
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,16 +19,27 @@ class FavoritesController extends Controller
     {
         abort_if(Gate::denies('favorite_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $favorites = Favorite::all();
+        $favorites = $this->getValues(Favorite::with(["customer_id", "product_id"])->get());
 
         return view('admin.favorites.index', compact('favorites'));
+    }
+
+    private function getValues($collection) {
+        foreach ($collection as $key => $value) {
+            $value->customer = Customer::find($value->customer_id);
+            $value->product = Product::find($value->product_id);
+        }
+        return $collection;
     }
 
     public function create()
     {
         abort_if(Gate::denies('favorite_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.favorites.create');
+        $customers = Customer::all();
+        $products = Product::all();
+
+        return view('admin.favorites.create', compact("customers", "products"));
     }
 
     public function store(StoreFavoriteRequest $request)
@@ -40,7 +53,10 @@ class FavoritesController extends Controller
     {
         abort_if(Gate::denies('favorite_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.favorites.edit', compact('favorite'));
+        $customers = Customer::all();
+        $products = Product::all();
+
+        return view('admin.favorites.edit', compact("favorite", "customers", "products"));
     }
 
     public function update(UpdateFavoriteRequest $request, Favorite $favorite)
@@ -53,6 +69,8 @@ class FavoritesController extends Controller
     public function show(Favorite $favorite)
     {
         abort_if(Gate::denies('favorite_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $this->getValues([$favorite->load(["customer_id", "product_id"])]);
 
         return view('admin.favorites.show', compact('favorite'));
     }

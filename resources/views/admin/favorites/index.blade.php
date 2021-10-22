@@ -46,10 +46,10 @@
                                 {{ $favorite->id ?? '' }}
                             </td>
                             <td>
-                                {{ $favorite->customer_id->id ?? '' }}
+                                {{ $favorite->customer->name . " " . $favorite->customer->surname ?? '' }}
                             </td>
                             <td>
-                                {{ $favorite->product_id->id ?? '' }}
+                                {{ $favorite->product->name ?? '' }}
                             </td>
                             <td>
                                 @can('favorite_show')
