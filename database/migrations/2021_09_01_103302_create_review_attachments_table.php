@@ -12,6 +12,11 @@ class CreateReviewAttachmentsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('location')->nullable();
+            $table->uuid('file_id')->nullable();
+            $table->string('file_name')->nullable();
+            $table->string('file_extension')->nullable();
+            $table->string('file_url')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

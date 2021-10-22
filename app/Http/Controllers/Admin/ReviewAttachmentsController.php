@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class ReviewAttachmentsController extends Controller
 {
@@ -21,7 +22,7 @@ class ReviewAttachmentsController extends Controller
     {
         abort_if(Gate::denies('review_attachment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $reviewAttachments = ReviewAttachment::with(['media'])->get();
+        $reviewAttachments = ReviewAttachment::all();
 
         return view('admin.reviewAttachments.index', compact('reviewAttachments'));
     }
@@ -35,15 +36,26 @@ class ReviewAttachmentsController extends Controller
 
     public function store(StoreReviewAttachmentRequest $request)
     {
-        $reviewAttachment = ReviewAttachment::create($request->all());
+        $file = $request->file("attachment");
+        $fileId = Str::uuid();
+        $fileName = $file->getClientOriginalName();
+        $fileExtension = $file->getClientOriginalExtension();
 
-        if ($request->input('attachment', false)) {
-            $reviewAttachment->addMedia(storage_path('tmp/uploads/' . basename($request->input('attachment'))))->toMediaCollection('attachment');
+        $attachment = new ReviewAttachment();
+        $attachment->name = $request->name;
+        $attachment->location = $request->location;
+        $attachment->file_id = $fileId;
+        $attachment->file_name = $fileName;
+        $attachment->file_extension = $fileExtension;
+        $attachment->file_url = env("APP_URL") . "/" . "review_attachments" . "/" . $fileId . "." . $fileExtension;
+        $attachment->image_url = $fileId . "." . $fileExtension;
+        $attachment->save();
+
+        if(!file_exists(public_path("review_attachments"))) {
+            mkdir(public_path("review_attachments"), 0777, true);
         }
 
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $reviewAttachment->id]);
-        }
+        $file->move(public_path("review_attachments"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.review-attachments.index');
     }
@@ -57,18 +69,31 @@ class ReviewAttachmentsController extends Controller
 
     public function update(UpdateReviewAttachmentRequest $request, ReviewAttachment $reviewAttachment)
     {
-        $reviewAttachment->update($request->all());
-
-        if ($request->input('attachment', false)) {
-            if (!$reviewAttachment->attachment || $request->input('attachment') !== $reviewAttachment->attachment->file_name) {
-                if ($reviewAttachment->attachment) {
-                    $reviewAttachment->attachment->delete();
-                }
-                $reviewAttachment->addMedia(storage_path('tmp/uploads/' . basename($request->input('attachment'))))->toMediaCollection('attachment');
-            }
-        } elseif ($reviewAttachment->attachment) {
-            $reviewAttachment->attachment->delete();
+        // dd($request->request);
+        $file = $request->file("attachment");
+        $fileId = Str::uuid();
+        if($file != null) {
+            $fileName = $file->getClientOriginalName();
+            $fileExtension = $file->getClientOriginalExtension();
         }
+
+        $attachment = ReviewAttachment::find($reviewAttachment->id);
+        $attachment->name = $request->name;
+        $attachment->location = $request->location;
+        if($file != null) {
+            $attachment->file_id = $fileId;
+            $attachment->file_name = $fileName;
+            $attachment->file_extension = $fileExtension;
+            $attachment->file_url = env("APP_URL") . "/" . "review_attachments" . "/" . $fileId . "." . $fileExtension;
+            $attachment->image_url = $fileId . "." . $fileExtension;
+        }
+        $attachment->save();
+
+        if(!file_exists(public_path("review_attachments"))) {
+            mkdir(public_path("review_attachments"), 0777, true);
+        }
+
+        $file->move(public_path("review_attachments"), $fileId.'.'.$fileExtension);
 
         return redirect()->route('admin.review-attachments.index');
     }

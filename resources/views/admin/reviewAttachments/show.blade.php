@@ -36,9 +36,9 @@
                             {{ trans('cruds.reviewAttachment.fields.attachment') }}
                         </th>
                         <td>
-                            @if($reviewAttachment->attachment)
-                                <a href="{{ $reviewAttachment->attachment->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $reviewAttachment->attachment->getUrl('thumb') }}">
+                            @if($reviewAttachment->file_url)
+                                <a href="{{ $reviewAttachment->file_url }}" target="_blank" style="display: inline-block;">
+                                    <img style="width: 4vw;" src="{{ asset("review_attachments/$reviewAttachment->image_url") }}">
                                 </a>
                             @endif
                         </td>
