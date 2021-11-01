@@ -11,25 +11,6 @@ use Illuminate\Http\Request;
 
 class CustomerApiController extends Controller
 {
-    public function checkIfExistEmail(Request $request)
-    {
-        $params = $request->only("email");
-        $email = $params["email"];
-
-        $user = Customer::whereNull("deleted_at")->where("email", $email)->first();
-        if(!$user) {
-            return [
-                "status" => ApiStatusCodes::$emailAvailable,
-                "message" => "Email available",
-            ];
-        }
-
-        return [
-            "status" => ApiStatusCodes::$emailIsNotAvailable,
-            "message" => "Email is not available",
-        ];
-    }
-
     public function newCustomer(Request $request)
     {
         // $user = LoginApiController::validateUser($request);

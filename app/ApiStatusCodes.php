@@ -13,6 +13,8 @@ class ApiStatusCodes {
     static $emailNotFound = "1002_EMAIL-NOT-FOUND";
     static $emailAvailable = "1003_EMAIL-AVAILABLE";
     static $emailIsNotAvailable = "1004_EMAIL-IS-NOT-AVAILABLE";
+    static $passwordChanged = "1005_PASSWORD-CHANGED";
+    static $passwordNotChanged = "1005_PASSWORD-NOT-CHANGED";
 
     // Customer Create
     static $customerCreated = "1100_USER-CREATED";
