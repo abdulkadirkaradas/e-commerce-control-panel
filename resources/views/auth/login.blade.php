@@ -77,6 +77,3 @@
     </div>
 </div>
 @endsection
-@
-@
-Daha fazla özelliğe ulaşmak için Pro versiyona geçin
