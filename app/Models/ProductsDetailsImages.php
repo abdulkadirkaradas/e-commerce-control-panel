@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class ProductDetail extends Model
+class ProductsDetailsImages extends Model
 {
     use SoftDeletes;
     use HasFactory;
 
-    public $table = 'product_details';
+    public $table = 'products_details_images';
 
 	protected $keyType = 'string';
     public $incrementing = false;
@@ -32,26 +32,14 @@ class ProductDetail extends Model
     ];
 
     protected $fillable = [
-        'image_id',
-        'product_id',
-        'details',
+        'file_id',
+        'file_name',
+        'file_extension',
+        'file_url',
+        'image_url',
+        'picture_type',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-    public function product_id()
-    {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
-
-    public function image_id()
-    {
-        return $this->belongsTo(ProductsDetailsImages::class, 'image_id');
-    }
-
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format('Y-m-d H:i:s');
-    }
 }

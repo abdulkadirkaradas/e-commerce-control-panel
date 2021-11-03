@@ -11,6 +11,8 @@ class AddRelationshipFieldsToProductDetailsTable extends Migration
         Schema::table('product_details', function (Blueprint $table) {
             $table->uuid('product_id')->nullable();
             $table->foreign('product_id', 'product_id_fk_4766055')->references('id')->on('products');
+            $table->uuid('image_id')->nullable();
+            $table->foreign('image_id', 'image_id_fk_47660556')->references('id')->on('products_details_images');
         });
     }
 }
