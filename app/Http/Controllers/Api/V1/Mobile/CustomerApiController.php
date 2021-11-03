@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\ApiStatusCodes;
-use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\CustomerAddress;

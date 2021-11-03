@@ -55,7 +55,7 @@ class UserApiController extends Controller
 
                     return [
                         "status" => ApiStatusCodes::$passwordNotChanged,
-                        "message" => "New password and Confirm password not be matched. Please check your fields.",
+                        "message" => "New password and Confirm password could not be matched. Please check your fields.",
                     ];
                 }
 

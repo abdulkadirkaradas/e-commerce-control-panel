@@ -16,7 +16,7 @@ class ApiStatusCodes {
     static $passwordChanged = "1005_PASSWORD-CHANGED";
     static $passwordNotChanged = "1005_PASSWORD-NOT-CHANGED";
 
-    // Customer Create
+    // Customer
     static $customerCreated = "1100_USER-CREATED";
     static $customerNotCreated = "1101_USER-NOT-CREATED";
 }
