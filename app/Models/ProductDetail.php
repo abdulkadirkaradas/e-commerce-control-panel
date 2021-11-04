@@ -32,7 +32,6 @@ class ProductDetail extends Model
     ];
 
     protected $fillable = [
-        'image_id',
         'product_id',
         'details',
         'created_at',

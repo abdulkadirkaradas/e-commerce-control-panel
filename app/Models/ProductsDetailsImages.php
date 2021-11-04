@@ -38,6 +38,7 @@ class ProductsDetailsImages extends Model
         'file_url',
         'image_url',
         'picture_type',
+        'product_details_id',
         'created_at',
         'updated_at',
         'deleted_at',

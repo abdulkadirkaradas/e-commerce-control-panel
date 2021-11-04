@@ -32,6 +32,12 @@
                             {{ trans('cruds.productDetail.fields.details') }}
                         </th>
                         <th>
+                            {{ trans('cruds.productDetail.fields.images') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.productDetail.fields.thumbnail') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -50,6 +56,20 @@
                             </td>
                             <td>
                                 {!! $productDetail->details !!}
+                            </td>
+                            <td>
+                                @if($image)
+                                    <a href="{{ $image->file_url }}" target="_blank" style="display: inline-block;">
+                                        <img style="width: 4vw;" src="{{ asset("products_images/$image->image_url") }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($thumbnail)
+                                    <a href="{{ $thumbnail->file_url }}" target="_blank" style="display: inline-block;">
+                                        <img style="width: 4vw;" src="{{ asset("products_thumbnails/$thumbnail->image_url") }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @can('product_detail_show')

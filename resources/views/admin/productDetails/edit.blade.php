@@ -24,6 +24,29 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.productDetail.fields.product_id_helper') }}</span>
             </div>
+
+            <div class="form-group">
+                <label for="">{{ trans('cruds.productDetail.fields.images') }}</label><br>
+                <input class="needsclick dropzone" type="file" name="product-images[]" multiple id="file-uploader">
+                @if($errors->has('images'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('images') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.productDetail.fields.images_helper') }}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="">{{ trans('cruds.productDetail.fields.thumbnail') }}</label><br>
+                <input class="needsclick dropzone" type="file" name="thumbnail[]" id="file-uploader">
+                @if($errors->has('images'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('images') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.productDetail.fields.thumbnail_helper') }}</span>
+            </div>
+
             <div class="form-group">
                 <label for="details">{{ trans('cruds.productDetail.fields.details') }}</label>
                 <textarea class="form-control ckeditor {{ $errors->has('details') ? 'is-invalid' : '' }}" name="details" id="details">{{ old('details', $productDetail->details) }}</textarea>

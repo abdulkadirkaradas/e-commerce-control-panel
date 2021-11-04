@@ -16,6 +16,7 @@ class CreateProductsDetailsImagesTable extends Migration
             $table->string("file_url")->nullable();
             $table->string("image_url")->nullable();
             $table->string("picture_type")->nullable();
+            $table->uuid("product_details_id")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
