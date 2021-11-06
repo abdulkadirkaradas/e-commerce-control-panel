@@ -29,6 +29,6 @@ Route::group(["prefix" => "v1", "as" => "api.", "namespace" => "Api\V1\Mobile", 
     Route::post("get-all-products", "ProductsApiController@getAllProducts");
 
     // Get Orders
-    // Route::post("get-customer-orders", "OrdersApiController@getCustomerOrders");
+    Route::post("get-customer-orders", "OrdersApiController@getCustomerOrders");
 
 });
