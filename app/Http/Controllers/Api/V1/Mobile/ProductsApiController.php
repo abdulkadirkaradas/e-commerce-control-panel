@@ -39,4 +39,19 @@ class ProductsApiController extends Controller
         }
         return $collection;
     }
+
+    public function getAllCategories(Request $request)
+    {
+        $user = LoginApiController::validateUser($request);
+
+        $categories = ProductCategory::all();
+
+        if($categories->isNotEmpty()) {
+            return [
+                "status" => ApiStatusCodes::$success,
+                "message" => "Categories successfully returned",
+                "data" => $categories
+            ];
+        }
+    }
 }
