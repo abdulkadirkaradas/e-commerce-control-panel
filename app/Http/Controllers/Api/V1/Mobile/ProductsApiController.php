@@ -42,9 +42,8 @@ class ProductsApiController extends Controller
 
     public function getAllCategories(Request $request)
     {
-        $user = LoginApiController::validateUser($request);
-
-        $categories = ProductCategory::all();
+        // $user = LoginApiController::validateUser($request);
+        $categories = ProductCategory::skip(0)->take(6)->get();
 
         if($categories->isNotEmpty()) {
             return [
