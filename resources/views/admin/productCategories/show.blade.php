@@ -31,6 +31,16 @@
                             {{ $productCategory->category_name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.productCategory.fields.sub_category_name') }}
+                        </th>
+                        <td>
+                            @foreach ($productCategory->sub as $item)
+                                {{ $item->category_name. ", " }}
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

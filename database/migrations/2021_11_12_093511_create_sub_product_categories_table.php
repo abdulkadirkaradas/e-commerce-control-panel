@@ -10,7 +10,7 @@ class CreateSubProductCategoriesTable extends Migration
     {
         Schema::create('sub_product_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('catgory_name');
+            $table->string('category_name');
             $table->string('sorting')->nullable();
             $table->timestamps();
             $table->softDeletes();

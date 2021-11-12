@@ -32,15 +32,15 @@ class SubProductCategories extends Model
     ];
 
     protected $fillable = [
-        'catgory_name',
-        'parent_category_id',
+        'category_name',
+        'product_category_id',
         'sorting',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function parent_category_id()
+    public function product_category_id()
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }

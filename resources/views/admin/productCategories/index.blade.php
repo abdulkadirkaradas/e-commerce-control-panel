@@ -29,6 +29,9 @@
                             {{ trans('cruds.productCategory.fields.category_name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.productCategory.fields.sub_category_name') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -45,6 +48,11 @@
                             <td>
                                 {{ $productCategory->category_name ?? '' }}
                             </td>
+                            @if ($productCategory->sub)
+                            <td>
+                                {{ $productCategory->sub[0]->category_name ?? '' }}
+                            </td>
+                            @endif
                             <td>
                                 @can('product_category_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.product-categories.show', $productCategory->id) }}">
