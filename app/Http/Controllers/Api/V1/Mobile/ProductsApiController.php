@@ -53,4 +53,29 @@ class ProductsApiController extends Controller
             ];
         }
     }
+
+    public function getProductsByCategories(Request $request)
+    {
+        // $user = LoginApiController::validateUser($request);
+        $params = $request->all();
+
+        $products = Product::whereNull("deleted_at")->where("category_id", $params["category_id"])->get();
+        foreach ($products as $key => $product) {
+            $details = ProductDetail::whereNull("deleted_at")->where("product_id", $product->id)->get();
+            $product->details = $details;
+            foreach ($details as $key => $detail) {
+                $product->details_images = [
+                    ProductsDetailsImages::whereNull("deleted_at")->where("product_details_id", $detail->id)->get()
+                ];
+            }
+        }
+
+        if($products) {
+            return [
+                "status" => ApiStatusCodes::$success,
+                "message" => "Successfull",
+                "data" => $products
+            ];
+        }
+    }
 }

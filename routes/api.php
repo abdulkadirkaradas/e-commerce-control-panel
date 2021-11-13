@@ -28,6 +28,9 @@ Route::group(["prefix" => "v1", "as" => "api.", "namespace" => "Api\V1\Mobile", 
     // Get All Products
     Route::post("get-all-products", "ProductsApiController@getAllProducts");
 
+    // Get Products By Categories
+    Route::post("get-products-by-categories", "ProductsApiController@getProductsByCategories");
+
     // Get All Categories
     Route::post("get-all-categories", "ProductsApiController@getAllCategories");
 
