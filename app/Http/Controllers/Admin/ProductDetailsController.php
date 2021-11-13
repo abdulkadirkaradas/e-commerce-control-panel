@@ -21,28 +21,22 @@ class ProductDetailsController extends Controller
         abort_if(Gate::denies('product_detail_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $productDetails = $this->getValues(ProductDetail::with(['product_id'])->get());
-        $image = $this->getImages($productDetails, "image", "index");
-        $thumbnail = $this->getImages($productDetails, "thumbnail", "index");
+        // dd($productDetails);
 
-        return view('admin.productDetails.index', compact('productDetails', 'image', 'thumbnail'));
+        return view('admin.productDetails.index', compact('productDetails'));
     }
 
-    private function getImages($collection, $pictureType, $which_func)
+    private function getImages($collection)
     {
         foreach ($collection as $key => $value) {
-            if($which_func == "index") {
-                $productImages = ProductsDetailsImages::whereNull("deleted_at")->where("product_details_id", $value->id)->where("picture_type", $pictureType)->first();
-                return $productImages;
-            } else {
-                $productImages = ProductsDetailsImages::whereNull("deleted_at")->where("product_details_id", $value->id)->get();
-                return $productImages;
-            }
+            $value->pictures = ProductsDetailsImages::whereNull("deleted_at")->where("product_details_id", $value->id)->get();
         }
     }
 
     private function getValues($collection) {
         foreach ($collection as $key => $value) {
             $value->product = Product::find($value->product_id);
+            $value->pictures = ProductsDetailsImages::whereNull("deleted_at")->where("product_details_id", $value->id)->get();
         }
         return $collection;
     }
@@ -165,7 +159,7 @@ class ProductDetailsController extends Controller
         abort_if(Gate::denies('product_detail_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->getValues([$productDetail->load('product_id')]);
-        $productImages = $this->getImages([$productDetail], "image", "show");
+        $productImages = $this->getImages([$productDetail]);
 
         return view('admin.productDetails.show', compact('productDetail', 'productImages'));
     }

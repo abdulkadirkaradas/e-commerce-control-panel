@@ -58,17 +58,25 @@
                                 {!! $productDetail->details !!}
                             </td>
                             <td>
-                                @if($image)
-                                    <a href="{{ $image->file_url }}" target="_blank" style="display: inline-block;">
-                                        <img style="width: 4vw;" src="{{ asset("products_images/$image->image_url") }}">
-                                    </a>
+                                @if($productDetail->pictures)
+                                    @foreach ($productDetail->pictures as $item)
+                                        @if ($item->picture_type == "image")
+                                            <a href="{{ $item->file_url }}" target="_blank" style="display: inline-block;">
+                                                <img style="width: 4vw;" src="{{ asset("products_images/$item->image_url") }}">
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 @endif
                             </td>
                             <td>
-                                @if($thumbnail)
-                                    <a href="{{ $thumbnail->file_url }}" target="_blank" style="display: inline-block;">
-                                        <img style="width: 4vw;" src="{{ asset("products_thumbnails/$thumbnail->image_url") }}">
-                                    </a>
+                                @if($productDetail->pictures)
+                                    @foreach ($productDetail->pictures as $item)
+                                        @if ($item->picture_type == "thumbnail")
+                                            <a href="{{ $item->file_url }}" target="_blank" style="display: inline-block;">
+                                                <img style="width: 4vw;" src="{{ asset("products_thumbnails/$item->image_url") }}">
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 @endif
                             </td>
                             <td>
